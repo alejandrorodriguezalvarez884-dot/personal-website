@@ -1,64 +1,195 @@
 // Centralized site data. Edit these values with your real information.
 
 export const profile = {
-  name: "Your Name",
-  role: "Your role / specialty",
-  tagline: "A short sentence summarizing what you do.",
+  name: "Alejandro Rodríguez Álvarez",
+  role: "AI Engineer",
+  tagline:
+    "AI Engineer building autonomous, agentic systems and optimizing LLMs for efficient, high-performance deployment.",
   bio: [
-    "Write a brief paragraph about yourself here: your background, what you're passionate about, and what you're good at.",
-    "You can add a second paragraph about your focus or what you're looking for professionally.",
+    "I'm an AI Engineer with a strong command of software development and extensive experience designing and implementing agentic systems — autonomous workflows that leverage AI and advanced reasoning to solve complex business challenges.",
+    "I also have deep technical knowledge of LLM architectures, particularly model compression and efficiency, and I'm skilled at optimizing large language models for high-performance, resource-efficient deployment. I'm looking for a role where I can apply that mix of technical and analytical skills to a dynamic, results-oriented team building the next generation of AI solutions.",
   ],
-  location: "City, Country",
-  email: "you@email.com",
+  location: "Madrid, Spain",
+  email: "alejandrorodriguezalvarez884@gmail.com",
   socials: {
     github: "https://github.com/alejandrorodriguezalvarez884-dot",
-    linkedin: "https://linkedin.com/in/your-username",
+    linkedin: "https://linkedin.com/in/alejandrorodriguez",
   },
+};
+
+export type SubRole = {
+  title: string;
+  period: string;
+  bullets: string[];
+  tech?: string[];
 };
 
 export type Experience = {
   role: string;
   company: string;
+  location: string;
   period: string;
-  description: string;
+  bullets?: string[];
+  tech?: string[];
+  subroles?: SubRole[];
 };
 
+// Ordered reverse-chronologically (most recent first), as is standard for a CV.
 export const experience: Experience[] = [
   {
-    role: "Current role",
-    company: "Company",
-    period: "2023 — Present",
-    description: "Brief description of your responsibilities and achievements in this role.",
+    role: "Freelance AI Engineer",
+    company: "Korn Ferry — client: Solera Holdings",
+    location: "Madrid, Spain",
+    period: "Jul 2026 — Present",
+    bullets: [
+      "Working as an independent consultant engaged through Korn Ferry on the Solera Holdings account, optimizing internal processes at every level using generative AI.",
+    ],
   },
   {
-    role: "Previous role",
-    company: "Previous company",
-    period: "2021 — 2023",
-    description: "Brief description of your responsibilities and achievements in this role.",
+    role: "AI Engineer",
+    company: "Multiverse Computing",
+    location: "Zaragoza, Spain",
+    period: "Jan 2026 — Jun 2026",
+    bullets: [
+      "Project Owner and technical lead for the project's development efforts, co-directing the technical direction alongside the project manager.",
+      "Planned, prioritized, and assigned technical tasks to the team, ensuring delivery quality.",
+      "Developed multi-agent workflows for complex business case solutions.",
+      "Compressed large language models using quantum-inspired algorithms and model healing based on knowledge distillation.",
+    ],
+    tech: ["RAG", "LangChain", "LangGraph", "MCP", "DevOps ML/AgentOps", "AWS S3", "AWS RDS"],
+  },
+  {
+    role: "Full Stack Engineer",
+    company: "Universidad Politécnica de Madrid",
+    location: "Madrid, Spain",
+    period: "Dec 2025 — Jun 2026",
+    bullets: [
+      "Part-time contract for a fixed 6-month period.",
+      "Developed a digital twin to optimize the blood transfusion chain in a Spanish region, covering both frontend (Streamlit) and backend development.",
+    ],
+    tech: ["Streamlit", "Flask", "Docker", "Makefile"],
+  },
+  {
+    role: "AI & Data Science Senior",
+    company: "Dentsu",
+    location: "Madrid, Spain",
+    period: "Jan 2023 — Dec 2025",
+    subroles: [
+      {
+        title: "AI & Data Science Senior",
+        period: "Jan 2025 — Dec 2025",
+        bullets: [
+          "Technical lead for a team of three engineers: creating and assigning tasks, resolving technical queries, and reviewing and approving merge requests.",
+          "Developed AI-powered solutions for optimizing internal company processes, including GenAI applications.",
+        ],
+        tech: ["RAG", "AI agents", "MCP", "DevOps ML/AgentOps", "Cloud Run", "CloudSQL"],
+      },
+      {
+        title: "AI & Data Science Junior",
+        period: "Jul 2023 — Dec 2024",
+        bullets: [
+          "Implemented the modeling methodology developed during the internship within the team, on projects to optimize media investment mix.",
+          "Delivered presentations and worked in direct contact with clients.",
+        ],
+        tech: [
+          "OOP (Python)",
+          "Backend Development",
+          "DevOps",
+          "MLOps",
+          "Cloud Run",
+          "CloudSQL",
+          "Cloud Storage",
+          "BigQuery",
+        ],
+      },
+      {
+        title: "Internship",
+        period: "Jan 2023 — Jun 2023",
+        bullets: ["Methodological development of an econometric modeling tool based on Bayesian inference."],
+        tech: ["OOP (Python)", "CloudSQL"],
+      },
+    ],
+  },
+  {
+    role: "Data Engineer",
+    company: "Minsait",
+    location: "Alcobendas, Spain",
+    period: "Jul 2021 — Sep 2022",
+    subroles: [
+      {
+        title: "Data ingestion project for Santander Bank",
+        period: "Oct 2021 — Sep 2022",
+        bullets: [
+          "ETL development and process automation using GCP tools such as Dataflow and Pub/Sub, Cloud Storage, and Python libraries such as PySpark and Selenium.",
+        ],
+      },
+      {
+        title: "Training period",
+        period: "Jul 2021 — Oct 2021",
+        bullets: [],
+        tech: ["Spark", "OOP (Scala and Python)", "Git"],
+      },
+    ],
   },
 ];
 
 export type Education = {
   degree: string;
   institution: string;
+  location: string;
   period: string;
+  description?: string;
 };
 
+// Ordered reverse-chronologically (most recent first).
 export const education: Education[] = [
   {
-    degree: "Degree",
-    institution: "University",
-    period: "2017 — 2021",
+    degree: "PhD, Computer Science (AI specialization)",
+    institution: "Universidad Complutense de Madrid",
+    location: "Madrid, Spain",
+    period: "Sep 2024 — Present",
+    description:
+      "Research area: deep-learning-based models for the prediction and detection of anomalous medical events.",
+  },
+  {
+    degree: "M.Sc. Mathematical Engineering",
+    institution: "Universidad Complutense de Madrid",
+    location: "Madrid, Spain",
+    period: "Sep 2022 — Jun 2023",
+    description:
+      "Mathematical Finance branch. Thesis: Bayesian inference as an analysis and forecasting tool in the marketing and advertising sector.",
+  },
+  {
+    degree: "B.Sc. Physics",
+    institution: "Universidad Autónoma de Madrid",
+    location: "Madrid, Spain",
+    period: "Sep 2017 — Jun 2021",
+    description: "Thesis: Solid-state hydrogen storage.",
   },
 ];
 
-export const skills: string[] = [
-  "Skill 1",
-  "Skill 2",
-  "Skill 3",
-  "Skill 4",
-  "Skill 5",
-  "Skill 6",
+export type Certification = {
+  name: string;
+  issuer: string;
+  year: string;
+};
+
+export const certifications: Certification[] = [
+  { name: "Professional Data Engineer on Google Cloud Platform", issuer: "Google", year: "2025" },
+  { name: "Marketing Science Professional", issuer: "Meta", year: "2023" },
+];
+
+export type SkillCategory = {
+  category: string;
+  items: string[];
+};
+
+export const skillCategories: SkillCategory[] = [
+  { category: "Coding", items: ["Python", "R", "SQL", "Scala", "Spark", "LaTeX", "C/C++"] },
+  { category: "Databases", items: ["MySQL", "PostgreSQL", "SQLite"] },
+  { category: "Web Dev", items: ["Django", "Flask", "Streamlit"] },
+  { category: "Cloud", items: ["Google Cloud Platform", "Azure", "AWS"] },
+  { category: "Languages", items: ["Spanish (native)", "Italian (C2)", "English (C1)"] },
 ];
 
 export type SubProject = {

@@ -1,5 +1,5 @@
 ---
-import { profile, experience, education, skills } from "../data/profile";
+import { profile, experience, education, certifications, skillCategories } from "../data/profile";
 ---
 
 <section id="about" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
@@ -9,22 +9,28 @@ import { profile, experience, education, skills } from "../data/profile";
 		{profile.bio.map((paragraph) => <p>{paragraph}</p>)}
 	</div>
 
-	<div class="mt-10">
-		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Skills</h3>
-		<ul class="mt-4 flex flex-wrap gap-2">
-			{
-				skills.map((skill) => (
-					<li class="rounded-full border border-stone-200 bg-white px-3 py-1 text-sm text-stone-700">
-						{skill}
-					</li>
-				))
-			}
-		</ul>
+	<div class="mt-10 space-y-5">
+		{
+			skillCategories.map((group) => (
+				<div class="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+					<h3 class="w-28 shrink-0 text-sm font-semibold uppercase tracking-widest text-stone-400">
+						{group.category}
+					</h3>
+					<ul class="flex flex-1 flex-wrap gap-2">
+						{group.items.map((skill) => (
+							<li class="rounded-full border border-stone-200 bg-white px-3 py-1 text-sm text-stone-700">
+								{skill}
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
 	</div>
 
 	<div class="mt-12">
 		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Experience</h3>
-		<ol class="mt-4 space-y-8 border-l border-stone-200 pl-6">
+		<ol class="mt-4 space-y-10 border-l border-stone-200 pl-6">
 			{
 				experience.map((item) => (
 					<li class="relative">
@@ -35,7 +41,54 @@ import { profile, experience, education, skills } from "../data/profile";
 							</h4>
 							<span class="text-sm text-stone-400">{item.period}</span>
 						</div>
-						<p class="mt-1 text-sm leading-relaxed text-stone-600">{item.description}</p>
+						<p class="text-sm text-stone-500">{item.location}</p>
+
+						{item.bullets && (
+							<ul class="mt-2 list-disc space-y-1 pl-4 text-sm leading-relaxed text-stone-600">
+								{item.bullets.map((bullet) => (
+									<li>{bullet}</li>
+								))}
+							</ul>
+						)}
+
+						{item.tech && (
+							<ul class="mt-3 flex flex-wrap gap-2">
+								{item.tech.map((tech) => (
+									<li class="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium text-stone-500">
+										{tech}
+									</li>
+								))}
+							</ul>
+						)}
+
+						{item.subroles && (
+							<ol class="mt-4 space-y-5 border-l border-stone-100 pl-5">
+								{item.subroles.map((sub) => (
+									<li>
+										<div class="flex flex-wrap items-baseline justify-between gap-x-4">
+											<h5 class="text-sm font-medium text-stone-800">{sub.title}</h5>
+											<span class="text-xs text-stone-400">{sub.period}</span>
+										</div>
+										{sub.bullets.length > 0 && (
+											<ul class="mt-1 list-disc space-y-1 pl-4 text-sm leading-relaxed text-stone-600">
+												{sub.bullets.map((bullet) => (
+													<li>{bullet}</li>
+												))}
+											</ul>
+										)}
+										{sub.tech && (
+											<ul class="mt-2 flex flex-wrap gap-2">
+												{sub.tech.map((tech) => (
+													<li class="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium text-stone-500">
+														{tech}
+													</li>
+												))}
+											</ul>
+										)}
+									</li>
+								))}
+							</ol>
+						)}
 					</li>
 				))
 			}
@@ -44,15 +97,34 @@ import { profile, experience, education, skills } from "../data/profile";
 
 	<div class="mt-12">
 		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Education</h3>
-		<ul class="mt-4 space-y-4">
+		<ul class="mt-4 space-y-5">
 			{
 				education.map((item) => (
-					<li class="flex flex-wrap items-baseline justify-between gap-x-4">
-						<div>
+					<li>
+						<div class="flex flex-wrap items-baseline justify-between gap-x-4">
 							<h4 class="font-medium text-stone-900">{item.degree}</h4>
-							<p class="text-sm text-stone-600">{item.institution}</p>
+							<span class="text-sm text-stone-400">{item.period}</span>
 						</div>
-						<span class="text-sm text-stone-400">{item.period}</span>
+						<p class="text-sm text-stone-600">
+							{item.institution} · {item.location}
+						</p>
+						{item.description && <p class="mt-1 text-sm leading-relaxed text-stone-500">{item.description}</p>}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<div class="mt-12">
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Certifications</h3>
+		<ul class="mt-4 space-y-2">
+			{
+				certifications.map((cert) => (
+					<li class="flex flex-wrap items-baseline justify-between gap-x-4">
+						<span class="text-sm text-stone-700">
+							{cert.name} <span class="text-stone-400">· {cert.issuer}</span>
+						</span>
+						<span class="text-sm text-stone-400">{cert.year}</span>
 					</li>
 				))
 			}
