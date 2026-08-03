@@ -7,13 +7,13 @@ export const profile = {
     "AI Engineer building autonomous, agentic systems and optimizing LLMs for efficient, high-performance deployment.",
   bio: [
     "I'm an AI Engineer with a strong command of software development and extensive experience designing and implementing agentic systems — autonomous workflows that leverage AI and advanced reasoning to solve complex business challenges.",
-    "I also have deep technical knowledge of LLM architectures, particularly model compression and efficiency, and I'm skilled at optimizing large language models for high-performance, resource-efficient deployment. I'm looking for a role where I can apply that mix of technical and analytical skills to a dynamic, results-oriented team building the next generation of AI solutions.",
+    "I also have deep technical knowledge of LLM architectures, particularly model compression and efficiency, and I'm skilled at optimizing large language models for high-performance, resource-efficient deployment.",
   ],
   location: "Madrid, Spain",
   email: "alejandrorodriguezalvarez884@gmail.com",
   socials: {
     github: "https://github.com/alejandrorodriguezalvarez884-dot",
-    linkedin: "https://linkedin.com/in/alejandrorodriguez",
+    linkedin: "https://www.linkedin.com/in/alejandro-rodr%C3%ADguez-%C3%A1lvarez-58051021b/",
   },
 };
 
@@ -165,6 +165,12 @@ export const education: Education[] = [
     location: "Madrid, Spain",
     period: "Sep 2017 — Jun 2021",
     description: "Thesis: Solid-state hydrogen storage.",
+  },
+  {
+    degree: "Bachillerato",
+    institution: "Liceo Italiano de Madrid",
+    location: "Madrid, Spain",
+    period: "Sep 2015 — Jun 2017",
   },
 ];
 
