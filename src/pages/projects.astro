@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Projects from "../components/Projects.astro";
+import Footer from "../components/Footer.astro";
+import { profile } from "../data/profile";
+---
+
+<Layout title={`Projects — ${profile.name}`} description="A selection of my projects, most recent first.">
+	<Nav />
+	<main>
+		<Projects />
+	</main>
+	<Footer />
+</Layout>

@@ -329,3 +329,21 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export type UpcomingProject = {
+  name: string;
+  description: string;
+};
+
+export const upcomingProjects: UpcomingProject[] = [
+  {
+    name: "LLM Compression to a 16GB Ceiling",
+    description:
+      "Applying the classic Deep Compression pipeline (Han et al., 2015) — magnitude pruning, k-means weight-sharing quantization, and Huffman coding — to a ~7B-parameter LLM sized to sit right at the edge of 16GB of RAM, entirely post-training with no full retraining, then comparing the result against modern quantization methods like GPTQ and AWQ.",
+  },
+  {
+    name: "AI Assistant for This Site",
+    description:
+      "Adding an AI assistant to this website that can answer visitor questions about me directly — my background, experience, and projects — using this site's own content as context.",
+  },
+];
