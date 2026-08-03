@@ -11,7 +11,7 @@ export const profile = {
   location: "Ciudad, País",
   email: "tu@email.com",
   socials: {
-    github: "https://github.com/tu-usuario",
+    github: "https://github.com/alejandrorodriguezalvarez884-dot",
     linkedin: "https://linkedin.com/in/tu-usuario",
   },
 };
@@ -61,31 +61,93 @@ export const skills: string[] = [
   "Skill 6",
 ];
 
+export type SubProject = {
+  name: string;
+  description: string;
+  url: string;
+};
+
 export type Project = {
   name: string;
   description: string;
   url: string;
   tags: string[];
+  period: string;
+  status?: "in-progress";
+  subprojects?: SubProject[];
 };
 
-// Placeholder: más adelante los sustituiremos por tus repos reales de GitHub.
+const GH = "https://github.com/alejandrorodriguezalvarez884-dot";
+
+// Ordenados cronológicamente (más antiguo primero) por fecha de creación/actividad en GitHub.
 export const projects: Project[] = [
   {
-    name: "Proyecto de ejemplo uno",
-    description: "Descripción breve de qué hace este proyecto y qué tecnologías usa.",
-    url: "https://github.com/tu-usuario/proyecto-uno",
-    tags: ["TypeScript", "Astro"],
+    name: "Tourist Guide",
+    description:
+      "Aplicación móvil de guía turística que genera información de puntos de interés personalizada con IA a partir de la ubicación GPS del usuario, en varios idiomas.",
+    url: `${GH}/tourist-guide-backend`,
+    tags: ["Python", "Flask", "DDD", "PostgreSQL", "React Native", "Gemini AI"],
+    period: "2025 — presente",
+    status: "in-progress",
+    subprojects: [
+      {
+        name: "Backend",
+        description: "API REST en Flask con arquitectura Domain-Driven Design (DDD) para la app móvil.",
+        url: `${GH}/tourist-guide-backend`,
+      },
+      {
+        name: "DB Helper",
+        description: "Scripts de gestión del esquema PostgreSQL: creación y borrado de tablas, modelo de usuarios.",
+        url: `${GH}/tourist-guide-db-helper`,
+      },
+      {
+        name: "App móvil",
+        description: "App en React Native/Expo con la navegación base ya implementada.",
+        url: `${GH}/tourist-guide-agent-mobile-app`,
+      },
+      {
+        name: "Agent Backend",
+        description:
+          "Servicio Flask/DDD que integra Gemini para generar contenido turístico y puntos de interés cercanos, con soporte multi-idioma (ES/EN/FR/DE/IT).",
+        url: `${GH}/tourist-guide-agent-backend`,
+      },
+      {
+        name: "Landing page",
+        description: "Pendiente de desarrollo.",
+        url: `${GH}/tourist-guide-landing-page`,
+      },
+    ],
   },
   {
-    name: "Proyecto de ejemplo dos",
-    description: "Descripción breve de qué hace este proyecto y qué tecnologías usa.",
-    url: "https://github.com/tu-usuario/proyecto-dos",
-    tags: ["Python", "Data"],
+    name: "Moltbook Agent",
+    description:
+      "Agente autónomo de IA que vive en Moltbook, la red social para agentes de IA. Usa Claude como modelo de razonamiento, se despliega en Google Cloud Run y se activa cada 5 minutos vía Cloud Scheduler.",
+    url: `${GH}/moltbook-agent`,
+    tags: ["Python", "Claude API", "FastAPI", "Google Cloud Run", "Firestore"],
+    period: "Abr 2026",
   },
   {
-    name: "Proyecto de ejemplo tres",
-    description: "Descripción breve de qué hace este proyecto y qué tecnologías usa.",
-    url: "https://github.com/tu-usuario/proyecto-tres",
-    tags: ["React"],
+    name: "Custom LLM Finetuning",
+    description:
+      "Fine-tuning local de un LLM pequeño (LittleLamb, 290M parámetros) sobre PDFs propios, sin bases vectoriales ni RAG: el conocimiento vive en los pesos del modelo y corre por completo en CPU.",
+    url: `${GH}/custom-llm-finetuning`,
+    tags: ["Python", "LoRA", "Hugging Face", "FastAPI", "Streamlit"],
+    period: "May 2026",
+  },
+  {
+    name: "LLM Router",
+    description:
+      "Descompone un prompt en subtareas con una única llamada de planificación a Claude, enruta cada una al modelo más barato capaz de resolverla (Haiku/Sonnet/Opus) y las ejecuta en paralelo, reduciendo coste y latencia frente a un único modelo grande.",
+    url: `${GH}/llm-router`,
+    tags: ["Python", "Claude API", "asyncio", "Streamlit"],
+    period: "Jul 2026",
+  },
+  {
+    name: "KD Boundaries",
+    description:
+      "Laboratorio visual de knowledge distillation: entrena un profesor y un alumno (con y sin destilación) sobre datasets 2D y compara sus fronteras de decisión, mostrando qué aprende realmente el alumno del profesor más allá de la precisión.",
+    url: `${GH}/kd-boundaries`,
+    tags: ["Python", "PyTorch", "Knowledge Distillation", "Visualización"],
+    period: "Jul 2026",
   },
 ];
