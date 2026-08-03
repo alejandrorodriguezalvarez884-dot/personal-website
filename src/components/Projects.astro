@@ -2,10 +2,10 @@
 import { projects } from "../data/profile";
 ---
 
-<section id="proyectos" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-	<h2 class="font-serif text-2xl font-semibold text-stone-900">Proyectos</h2>
+<section id="projects" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
+	<h2 class="font-serif text-2xl font-semibold text-stone-900">Projects</h2>
 	<p class="mt-2 text-sm text-stone-500">
-		Selección de proyectos de GitHub, ordenados cronológicamente.
+		A selection of GitHub projects, ordered chronologically.
 	</p>
 
 	<div class="mt-8 space-y-5">
@@ -24,7 +24,7 @@ import { projects } from "../data/profile";
 						<div class="flex items-center gap-2">
 							{project.status === "in-progress" && (
 								<span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">
-									En progreso
+									In progress
 								</span>
 							)}
 							<span class="text-sm text-stone-400">{project.period}</span>

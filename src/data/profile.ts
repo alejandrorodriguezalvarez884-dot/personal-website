@@ -1,18 +1,18 @@
-// Datos centralizados del sitio. Edita estos valores con tu información real.
+// Centralized site data. Edit these values with your real information.
 
 export const profile = {
-  name: "Tu Nombre",
-  role: "Tu puesto / especialidad",
-  tagline: "Una frase corta que resuma lo que haces.",
+  name: "Your Name",
+  role: "Your role / specialty",
+  tagline: "A short sentence summarizing what you do.",
   bio: [
-    "Escribe aquí un párrafo breve sobre ti: tu trayectoria, lo que te apasiona y en qué eres bueno.",
-    "Puedes añadir un segundo párrafo con tu enfoque o lo que buscas profesionalmente.",
+    "Write a brief paragraph about yourself here: your background, what you're passionate about, and what you're good at.",
+    "You can add a second paragraph about your focus or what you're looking for professionally.",
   ],
-  location: "Ciudad, País",
-  email: "tu@email.com",
+  location: "City, Country",
+  email: "you@email.com",
   socials: {
     github: "https://github.com/alejandrorodriguezalvarez884-dot",
-    linkedin: "https://linkedin.com/in/tu-usuario",
+    linkedin: "https://linkedin.com/in/your-username",
   },
 };
 
@@ -25,16 +25,16 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    role: "Puesto actual",
-    company: "Empresa",
-    period: "2023 — Presente",
-    description: "Breve descripción de tus responsabilidades y logros en este puesto.",
+    role: "Current role",
+    company: "Company",
+    period: "2023 — Present",
+    description: "Brief description of your responsibilities and achievements in this role.",
   },
   {
-    role: "Puesto anterior",
-    company: "Empresa anterior",
+    role: "Previous role",
+    company: "Previous company",
     period: "2021 — 2023",
-    description: "Breve descripción de tus responsabilidades y logros en este puesto.",
+    description: "Brief description of your responsibilities and achievements in this role.",
   },
 ];
 
@@ -46,8 +46,8 @@ export type Education = {
 
 export const education: Education[] = [
   {
-    degree: "Título / Grado",
-    institution: "Universidad",
+    degree: "Degree",
+    institution: "University",
     period: "2017 — 2021",
   },
 ];
@@ -79,41 +79,41 @@ export type Project = {
 
 const GH = "https://github.com/alejandrorodriguezalvarez884-dot";
 
-// Ordenados cronológicamente (más antiguo primero) por fecha de creación/actividad en GitHub.
+// Ordered chronologically (oldest first) by creation/activity date on GitHub.
 export const projects: Project[] = [
   {
     name: "Tourist Guide",
     description:
-      "Aplicación móvil de guía turística que genera información de puntos de interés personalizada con IA a partir de la ubicación GPS del usuario, en varios idiomas.",
+      "Mobile tourist-guide app that generates AI-personalized points-of-interest information from the user's GPS location, in multiple languages.",
     url: `${GH}/tourist-guide-backend`,
     tags: ["Python", "Flask", "DDD", "PostgreSQL", "React Native", "Gemini AI"],
-    period: "2025 — presente",
+    period: "2025 — present",
     status: "in-progress",
     subprojects: [
       {
         name: "Backend",
-        description: "API REST en Flask con arquitectura Domain-Driven Design (DDD) para la app móvil.",
+        description: "REST API in Flask with Domain-Driven Design (DDD) architecture for the mobile app.",
         url: `${GH}/tourist-guide-backend`,
       },
       {
         name: "DB Helper",
-        description: "Scripts de gestión del esquema PostgreSQL: creación y borrado de tablas, modelo de usuarios.",
+        description: "PostgreSQL schema management scripts: creating and dropping tables, user model.",
         url: `${GH}/tourist-guide-db-helper`,
       },
       {
-        name: "App móvil",
-        description: "App en React Native/Expo con la navegación base ya implementada.",
+        name: "Mobile app",
+        description: "React Native/Expo app with base navigation already implemented.",
         url: `${GH}/tourist-guide-agent-mobile-app`,
       },
       {
         name: "Agent Backend",
         description:
-          "Servicio Flask/DDD que integra Gemini para generar contenido turístico y puntos de interés cercanos, con soporte multi-idioma (ES/EN/FR/DE/IT).",
+          "Flask/DDD service that integrates Gemini to generate tourist content and nearby points of interest, with multi-language support (ES/EN/FR/DE/IT).",
         url: `${GH}/tourist-guide-agent-backend`,
       },
       {
         name: "Landing page",
-        description: "Pendiente de desarrollo.",
+        description: "Not started yet.",
         url: `${GH}/tourist-guide-landing-page`,
       },
     ],
@@ -121,15 +121,15 @@ export const projects: Project[] = [
   {
     name: "Moltbook Agent",
     description:
-      "Agente autónomo de IA que vive en Moltbook, la red social para agentes de IA. Usa Claude como modelo de razonamiento, se despliega en Google Cloud Run y se activa cada 5 minutos vía Cloud Scheduler.",
+      "Autonomous AI agent that lives on Moltbook, the social network for AI agents. Uses Claude as its reasoning model, deploys on Google Cloud Run, and is triggered every 5 minutes via Cloud Scheduler.",
     url: `${GH}/moltbook-agent`,
     tags: ["Python", "Claude API", "FastAPI", "Google Cloud Run", "Firestore"],
-    period: "Abr 2026",
+    period: "Apr 2026",
   },
   {
     name: "Custom LLM Finetuning",
     description:
-      "Fine-tuning local de un LLM pequeño (LittleLamb, 290M parámetros) sobre PDFs propios, sin bases vectoriales ni RAG: el conocimiento vive en los pesos del modelo y corre por completo en CPU.",
+      "Local fine-tuning of a small LLM (LittleLamb, 290M parameters) on your own PDFs, with no vector databases or RAG: the knowledge lives in the model weights and runs entirely on CPU.",
     url: `${GH}/custom-llm-finetuning`,
     tags: ["Python", "LoRA", "Hugging Face", "FastAPI", "Streamlit"],
     period: "May 2026",
@@ -137,7 +137,7 @@ export const projects: Project[] = [
   {
     name: "LLM Router",
     description:
-      "Descompone un prompt en subtareas con una única llamada de planificación a Claude, enruta cada una al modelo más barato capaz de resolverla (Haiku/Sonnet/Opus) y las ejecuta en paralelo, reduciendo coste y latencia frente a un único modelo grande.",
+      "Decomposes a prompt into subtasks with a single planning call to Claude, routes each one to the cheapest model capable of handling it (Haiku/Sonnet/Opus), and runs them in parallel, cutting cost and latency versus a single large model.",
     url: `${GH}/llm-router`,
     tags: ["Python", "Claude API", "asyncio", "Streamlit"],
     period: "Jul 2026",
@@ -145,9 +145,9 @@ export const projects: Project[] = [
   {
     name: "KD Boundaries",
     description:
-      "Laboratorio visual de knowledge distillation: entrena un profesor y un alumno (con y sin destilación) sobre datasets 2D y compara sus fronteras de decisión, mostrando qué aprende realmente el alumno del profesor más allá de la precisión.",
+      "A visual knowledge-distillation lab: trains a teacher and a student (with and without distillation) on 2D datasets and compares their decision boundaries, showing what the student actually learns from the teacher beyond accuracy.",
     url: `${GH}/kd-boundaries`,
-    tags: ["Python", "PyTorch", "Knowledge Distillation", "Visualización"],
+    tags: ["Python", "PyTorch", "Knowledge Distillation", "Visualization"],
     period: "Jul 2026",
   },
 ];

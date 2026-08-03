@@ -2,15 +2,15 @@
 import { profile, experience, education, skills } from "../data/profile";
 ---
 
-<section id="sobre-mi" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-	<h2 class="font-serif text-2xl font-semibold text-stone-900">Sobre mí</h2>
+<section id="about" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
+	<h2 class="font-serif text-2xl font-semibold text-stone-900">About me</h2>
 
 	<div class="mt-6 space-y-4 text-base leading-relaxed text-stone-600">
 		{profile.bio.map((paragraph) => <p>{paragraph}</p>)}
 	</div>
 
 	<div class="mt-10">
-		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Habilidades</h3>
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Skills</h3>
 		<ul class="mt-4 flex flex-wrap gap-2">
 			{
 				skills.map((skill) => (
@@ -23,7 +23,7 @@ import { profile, experience, education, skills } from "../data/profile";
 	</div>
 
 	<div class="mt-12">
-		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Experiencia</h3>
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Experience</h3>
 		<ol class="mt-4 space-y-8 border-l border-stone-200 pl-6">
 			{
 				experience.map((item) => (
@@ -43,7 +43,7 @@ import { profile, experience, education, skills } from "../data/profile";
 	</div>
 
 	<div class="mt-12">
-		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Formación</h3>
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Education</h3>
 		<ul class="mt-4 space-y-4">
 			{
 				education.map((item) => (
