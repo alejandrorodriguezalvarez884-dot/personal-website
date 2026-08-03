@@ -37,7 +37,37 @@ import { profile, experience, education, certifications, skillCategories } from 
 						<span class="absolute -left-[27px] top-1.5 h-2.5 w-2.5 rounded-full bg-emerald-700" />
 						<div class="flex flex-wrap items-baseline justify-between gap-x-4">
 							<h4 class="font-medium text-stone-900">
-								{item.role} · {item.company}
+								{item.role} ·{" "}
+								{item.companyUrl ? (
+									<a
+										href={item.companyUrl}
+										target="_blank"
+										rel="noreferrer"
+										class="transition-colors hover:text-emerald-700"
+									>
+										{item.company}
+									</a>
+								) : (
+									item.company
+								)}
+								{item.client && (
+									<>
+										{" "}
+										— client:{" "}
+										{item.clientUrl ? (
+											<a
+												href={item.clientUrl}
+												target="_blank"
+												rel="noreferrer"
+												class="transition-colors hover:text-emerald-700"
+											>
+												{item.client}
+											</a>
+										) : (
+											item.client
+										)}
+									</>
+								)}
 							</h4>
 							<span class="text-sm text-stone-400">{item.period}</span>
 						</div>

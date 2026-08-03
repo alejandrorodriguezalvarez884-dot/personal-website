@@ -27,6 +27,9 @@ export type SubRole = {
 export type Experience = {
   role: string;
   company: string;
+  companyUrl?: string;
+  client?: string;
+  clientUrl?: string;
   location: string;
   period: string;
   bullets?: string[];
@@ -38,7 +41,10 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     role: "Freelance AI Engineer",
-    company: "Korn Ferry — client: Solera Holdings",
+    company: "Korn Ferry",
+    companyUrl: "https://www.kornferry.com",
+    client: "Solera Holdings",
+    clientUrl: "https://www.solera.com",
     location: "Madrid, Spain",
     period: "Jul 2026 — Present",
     bullets: [
@@ -48,6 +54,7 @@ export const experience: Experience[] = [
   {
     role: "AI Engineer",
     company: "Multiverse Computing",
+    companyUrl: "https://multiversecomputing.com",
     location: "Zaragoza, Spain",
     period: "Jan 2026 — Jun 2026",
     bullets: [
@@ -61,6 +68,7 @@ export const experience: Experience[] = [
   {
     role: "Full Stack Engineer",
     company: "Universidad Politécnica de Madrid",
+    companyUrl: "https://www.upm.es",
     location: "Madrid, Spain",
     period: "Dec 2025 — Jun 2026",
     bullets: [
@@ -72,6 +80,7 @@ export const experience: Experience[] = [
   {
     role: "AI & Data Science Senior",
     company: "Dentsu",
+    companyUrl: "https://www.dentsu.com",
     location: "Madrid, Spain",
     period: "Jan 2023 — Dec 2025",
     subroles: [
@@ -113,6 +122,7 @@ export const experience: Experience[] = [
   {
     role: "Data Engineer",
     company: "Minsait",
+    companyUrl: "https://www.minsait.com",
     location: "Alcobendas, Spain",
     period: "Jul 2021 — Sep 2022",
     subroles: [
