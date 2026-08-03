@@ -1,0 +1,36 @@
+---
+import { profile } from "../data/profile";
+---
+
+<section id="contacto" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
+	<div class="rounded-2xl border border-stone-200 bg-white px-8 py-12 text-center">
+		<h2 class="font-serif text-2xl font-semibold text-stone-900">¿Hablamos?</h2>
+		<p class="mx-auto mt-3 max-w-md text-stone-600">
+			Estoy abierto a nuevas oportunidades y colaboraciones. Escríbeme y te responderé lo antes posible.
+		</p>
+		<div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+			<a
+				href={`mailto:${profile.email}`}
+				class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition-colors hover:bg-stone-700"
+			>
+				{profile.email}
+			</a>
+			<a
+				href={profile.socials.linkedin}
+				target="_blank"
+				rel="noreferrer"
+				class="rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400 hover:text-stone-900"
+			>
+				LinkedIn
+			</a>
+			<a
+				href={profile.socials.github}
+				target="_blank"
+				rel="noreferrer"
+				class="rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400 hover:text-stone-900"
+			>
+				GitHub
+			</a>
+		</div>
+	</div>
+</section>

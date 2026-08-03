@@ -1,0 +1,61 @@
+---
+import { profile, experience, education, skills } from "../data/profile";
+---
+
+<section id="sobre-mi" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
+	<h2 class="font-serif text-2xl font-semibold text-stone-900">Sobre mí</h2>
+
+	<div class="mt-6 space-y-4 text-base leading-relaxed text-stone-600">
+		{profile.bio.map((paragraph) => <p>{paragraph}</p>)}
+	</div>
+
+	<div class="mt-10">
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Habilidades</h3>
+		<ul class="mt-4 flex flex-wrap gap-2">
+			{
+				skills.map((skill) => (
+					<li class="rounded-full border border-stone-200 bg-white px-3 py-1 text-sm text-stone-700">
+						{skill}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<div class="mt-12">
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Experiencia</h3>
+		<ol class="mt-4 space-y-8 border-l border-stone-200 pl-6">
+			{
+				experience.map((item) => (
+					<li class="relative">
+						<span class="absolute -left-[27px] top-1.5 h-2.5 w-2.5 rounded-full bg-emerald-700" />
+						<div class="flex flex-wrap items-baseline justify-between gap-x-4">
+							<h4 class="font-medium text-stone-900">
+								{item.role} · {item.company}
+							</h4>
+							<span class="text-sm text-stone-400">{item.period}</span>
+						</div>
+						<p class="mt-1 text-sm leading-relaxed text-stone-600">{item.description}</p>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+
+	<div class="mt-12">
+		<h3 class="text-sm font-semibold uppercase tracking-widest text-stone-400">Formación</h3>
+		<ul class="mt-4 space-y-4">
+			{
+				education.map((item) => (
+					<li class="flex flex-wrap items-baseline justify-between gap-x-4">
+						<div>
+							<h4 class="font-medium text-stone-900">{item.degree}</h4>
+							<p class="text-sm text-stone-600">{item.institution}</p>
+						</div>
+						<span class="text-sm text-stone-400">{item.period}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
