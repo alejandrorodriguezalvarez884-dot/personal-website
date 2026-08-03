@@ -217,6 +217,10 @@ export type SubProject = {
 export type Project = {
   name: string;
   description: string;
+  details?: string[];
+  highlights?: string[];
+  image?: string;
+  imageAlt?: string;
   url: string;
   tags: string[];
   period: string;
@@ -225,6 +229,7 @@ export type Project = {
 };
 
 const GH = "https://github.com/alejandrorodriguezalvarez884-dot";
+const RAW = "https://raw.githubusercontent.com/alejandrorodriguezalvarez884-dot";
 
 // Ordered chronologically (oldest first) by creation/activity date on GitHub.
 export const projects: Project[] = [
@@ -232,6 +237,10 @@ export const projects: Project[] = [
     name: "Tourist Guide",
     description:
       "Mobile tourist-guide app that generates AI-personalized points-of-interest information from the user's GPS location, in multiple languages.",
+    details: [
+      "A full-stack side project built end to end: a Domain-Driven Design REST API, a PostgreSQL data layer, a React Native/Expo mobile client, and a second Flask/DDD service that calls Gemini to turn raw GPS coordinates into narrated points of interest — historical context, nearby landmarks, recommendations — on demand, in five languages.",
+      "It's the oldest project here and the one currently being actively rebuilt: the core AI pipeline and API already work end to end, the mobile app has its navigation shell in place, and the landing page is the next piece to build.",
+    ],
     url: `${GH}/tourist-guide-backend`,
     tags: ["Python", "Flask", "DDD", "PostgreSQL", "React Native", "Gemini AI"],
     period: "2025 — present",
@@ -269,6 +278,10 @@ export const projects: Project[] = [
     name: "Moltbook Agent",
     description:
       "Autonomous AI agent that lives on Moltbook, the social network for AI agents. Uses Claude as its reasoning model, deploys on Google Cloud Run, and is triggered every 5 minutes via Cloud Scheduler.",
+    details: [
+      "Every 5 minutes, Cloud Scheduler hits a FastAPI heartbeat endpoint on Cloud Run, which asks Claude to decide what the agent should do next, persists its evolving state to Firestore, and posts back to Moltbook through a small API client — a self-registering agent that runs unattended, with no human in the loop.",
+      "Secrets never touch the codebase: API keys live in Secret Manager, and the service itself runs with --no-allow-unauthenticated so only Cloud Scheduler's OIDC token can ever trigger it.",
+    ],
     url: `${GH}/moltbook-agent`,
     tags: ["Python", "Claude API", "FastAPI", "Google Cloud Run", "Firestore"],
     period: "Apr 2026",
@@ -277,6 +290,12 @@ export const projects: Project[] = [
     name: "Custom LLM Finetuning",
     description:
       "Local fine-tuning of a small LLM (LittleLamb, 290M parameters) on your own PDFs, with no vector databases or RAG: the knowledge lives in the model weights and runs entirely on CPU.",
+    details: [
+      "Most \"chat with your PDFs\" tools reach for a full RAG stack — a vector database, an embedding model, a chunking/retrieval/reranking pipeline — even for a handful of documents. This project takes the opposite approach for small, stable document sets: extract the text (and describe any embedded images via Claude Vision), turn it into a Q&A training set, and LoRA fine-tune LittleLamb — a 290M-parameter model built by Multiverse Computing by compressing Qwen3-0.6B, state of the art for its size class — directly on the content.",
+      "The result runs entirely offline on a laptop CPU: a FastAPI server exposes an OpenAI-compatible endpoint, and a Streamlit chat UI lets you ask questions the model answers straight from what it learned — no retrieval step, no infrastructure.",
+    ],
+    image: `${RAW}/custom-llm-finetuning/main/docs/ui-screenshot.png`,
+    imageAlt: "LittleLamb Document Chat — a Streamlit chat interface for querying the fine-tuned model",
     url: `${GH}/custom-llm-finetuning`,
     tags: ["Python", "LoRA", "Hugging Face", "FastAPI", "Streamlit"],
     period: "May 2026",
@@ -284,7 +303,13 @@ export const projects: Project[] = [
   {
     name: "LLM Router",
     description:
-      "Decomposes a prompt into subtasks with a single planning call to Claude, routes each one to the cheapest model capable of handling it (Haiku/Sonnet/Opus), and runs them in parallel, cutting cost and latency versus a single large model.",
+      "Decomposes a prompt into subtasks with a single planning call to Claude, routes each one to the cheapest model capable of handling it (Haiku/Sonnet/Opus), and runs the independent ones in parallel.",
+    details: [
+      "A single structured-output call to Claude plans the whole job: it breaks a prompt into a dependency graph of subtasks, assigns each one the cheapest model tier that can handle it, and is explicitly told that decomposition isn't free — every extra call has its own overhead — so it only splits work when parallelism or a cheaper tier is actually worth it.",
+      "The executor groups subtasks into dependency-respecting \"waves\" and fires every subtask in a wave concurrently via asyncio, so a wave takes as long as its slowest call rather than the sum of all of them; a final synthesis call stitches independent results back into one answer. Every call — planner, subtasks, synthesis, and a single-model baseline for comparison — logs its own tokens, cost, and latency, so the routed pipeline can be benchmarked against just sending the whole prompt to one large model.",
+    ],
+    image: `${RAW}/llm-router/main/experiments/output/plan_shape.png`,
+    imageAlt: "Chart showing how the planner decomposes more subtasks and execution waves as prompt complexity increases",
     url: `${GH}/llm-router`,
     tags: ["Python", "Claude API", "asyncio", "Streamlit"],
     period: "Jul 2026",
@@ -293,6 +318,12 @@ export const projects: Project[] = [
     name: "KD Boundaries",
     description:
       "A visual knowledge-distillation lab: trains a teacher and a student (with and without distillation) on 2D datasets and compares their decision boundaries, showing what the student actually learns from the teacher beyond accuracy.",
+    details: [
+      "Every experiment plots three panels side by side — teacher, student trained on hard labels only, and an architecturally identical student distilled from the teacher — so instead of comparing accuracy numbers you can literally see the boundary each model settled on. On datasets with a real \"void\" (regions with no training data, like the XOR-blobs case pictured), the no-KD student and the teacher resolve the ambiguity differently, while the KD student — trained on extra teacher-labeled query points sampled from that empty region — reproduces the teacher's exact boundary almost perfectly.",
+      "Two further experiments (overlapping blobs, a biased teacher) show the same mechanism from the opposite angle: when there's no void to fill, KD instead transfers the teacher's calibration — including its flaws, like overconfidence or a spurious shortcut feature — which the README argues is structurally the same effect behind why sequence-level distillation works for LLMs, not just a toy analogy.",
+    ],
+    image: `${RAW}/kd-boundaries/main/docs/assets/xor_boundaries.png`,
+    imageAlt: "Three-panel decision boundary comparison: teacher, student without knowledge distillation, and student with knowledge distillation, on the XOR-blobs dataset",
     url: `${GH}/kd-boundaries`,
     tags: ["Python", "PyTorch", "Knowledge Distillation", "Visualization"],
     period: "Jul 2026",
