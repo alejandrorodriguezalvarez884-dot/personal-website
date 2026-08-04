@@ -162,7 +162,10 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 		if (event.key === "Escape" && open) setOpen(false);
 	});
 	document.addEventListener("click", (event) => {
-		if (open && !root.contains(event.target)) setOpen(false);
+		// composedPath (not root.contains(event.target)) because sendMessage() can remove
+		// the suggestion button from the DOM before this handler runs - a detached node
+		// always fails .contains(), which misread "clicked a suggestion" as "clicked outside".
+		if (open && !event.composedPath().includes(root)) setOpen(false);
 	});
 
 	function addBubble(role, text) {
