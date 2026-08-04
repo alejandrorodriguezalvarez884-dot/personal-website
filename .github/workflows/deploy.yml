@@ -24,6 +24,12 @@ jobs:
         uses: withastro/action@v3
         with:
           node-version: "22"
+        env:
+          # Not secret - inlined into the client bundle either way (Astro PUBLIC_ vars are
+          # public by design). CORS on the ask-my-site backend is what actually restricts
+          # who can call it. .env is gitignored and never reaches this checkout, so this is
+          # the only place CI learns the value.
+          PUBLIC_ASK_MY_SITE_API_URL: https://ask-my-site-3qwezbjyfq-ew.a.run.app
 
   deploy:
     needs: build

@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { profile } from "../data/profile";
+import AskAssistant from "../components/AskAssistant.astro";
 
 interface Props {
   title?: string;
@@ -35,6 +36,7 @@ const {
 	</head>
 	<body class="bg-stone-50 text-stone-800 antialiased selection:bg-stone-800 selection:text-stone-50">
 		<slot />
+		<AskAssistant />
 	</body>
 </html>
 

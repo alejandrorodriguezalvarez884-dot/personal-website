@@ -1,0 +1,241 @@
+---
+// Floating "ask me anything" chat widget, backed by the ask-my-site backend
+// (https://github.com/alejandrorodriguezalvarez884-dot/ask-my-site). Talks to POST /chat
+// directly from the browser - CORS on that service is locked to this site's origin.
+const API_URL = import.meta.env.PUBLIC_ASK_MY_SITE_API_URL;
+
+type PromptSet = { greeting: string; suggestions: string[] };
+
+// Per-page defaults (same pattern Nav.astro uses for isActive) - the backend has no notion
+// of "page," this is purely which opening questions are most useful to surface where.
+const promptsByPath: Record<string, PromptSet> = {
+	"/projects": {
+		greeting: "Hey 👋 Curious about any of these? Ask me for the story behind one.",
+		suggestions: ["What's Ask My Site built with?", "Tell me about KD Boundaries", "What's he building right now?"],
+	},
+	"/contact": {
+		greeting: "Hey 👋 Want to get in touch, or grab time on my calendar? Ask away.",
+		suggestions: ["Can I schedule a call with you?", "What's the best way to reach you?", "Is he open to freelance work?"],
+	},
+};
+
+const defaultPrompts: PromptSet = {
+	greeting: "Hey 👋 I'm an AI assistant that knows Alejandro's background, experience, and projects. Ask me anything!",
+	suggestions: ["What's he working on?", "Tell me about his experience", "Is he open to relocating?"],
+};
+
+const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/, "")] ?? defaultPrompts;
+---
+
+<div id="ask-assistant" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+	<section
+		id="ask-panel"
+		class="mb-4 flex h-[32rem] max-h-[70vh] w-[22rem] max-w-[calc(100vw-3rem)] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl"
+	>
+		<header class="flex items-center justify-between border-b border-stone-200 px-5 py-4">
+			<div class="flex items-center gap-3">
+				<span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-base">
+					🤖
+				</span>
+				<div>
+					<p class="font-serif text-sm font-semibold text-stone-900">Ask me anything</p>
+					<p class="text-xs text-stone-400">AI trained on my background</p>
+				</div>
+			</div>
+			<button
+				id="ask-close"
+				type="button"
+				aria-label="Close chat"
+				class="rounded-full p-1.5 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-900"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+					<path
+						d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+					></path>
+				</svg>
+			</button>
+		</header>
+
+		<div id="ask-messages" class="flex flex-1 flex-col gap-3 overflow-y-auto bg-stone-50 px-4 py-4">
+			<div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm border border-stone-200 bg-white px-4 py-2.5 text-sm leading-relaxed text-stone-700">
+				{greeting}
+			</div>
+			<div id="ask-suggestions" class="flex flex-wrap gap-2">
+				{
+					suggestions.map((suggestion) => (
+						<button
+							type="button"
+							class="ask-suggestion rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs text-stone-600 transition-colors hover:border-stone-400 hover:text-stone-900"
+						>
+							{suggestion}
+						</button>
+					))
+				}
+			</div>
+		</div>
+
+		<form id="ask-form" class="flex items-center gap-2 border-t border-stone-200 bg-white p-3">
+			<input
+				id="ask-input"
+				type="text"
+				autocomplete="off"
+				placeholder="Type a question..."
+				class="flex-1 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-stone-400 focus:outline-none"
+			/>
+			<button
+				id="ask-send"
+				type="submit"
+				aria-label="Send"
+				class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-stone-900 text-stone-50 transition-colors hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+					<path
+						d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.897 28.897 0 0015.293-7.155.75.75 0 000-1.114A28.897 28.897 0 003.105 2.289z"
+					></path>
+				</svg>
+			</button>
+		</form>
+	</section>
+
+	<button
+		id="ask-toggle"
+		type="button"
+		aria-label="Open chat"
+		aria-expanded="false"
+		class="relative flex h-14 w-14 items-center justify-center rounded-full bg-stone-900 text-stone-50 shadow-lg transition-transform hover:scale-105 hover:bg-stone-700"
+	>
+		<span class="absolute right-0.5 top-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+		<svg id="ask-icon-chat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+			<path
+				fill-rule="evenodd"
+				d="M4.848 2.771A49.144 49.144 0 0112 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 01-3.476.383.39.39 0 00-.297.17l-2.755 4.133a.75.75 0 01-1.248 0l-2.755-4.133a.39.39 0 00-.297-.17 48.9 48.9 0 01-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97z"
+				clip-rule="evenodd"></path>
+		</svg>
+		<svg id="ask-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="hidden h-6 w-6">
+			<path
+				d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+			></path>
+		</svg>
+	</button>
+</div>
+
+<script define:vars={{ API_URL }}>
+	const root = document.getElementById("ask-assistant");
+	const panel = document.getElementById("ask-panel");
+	const toggle = document.getElementById("ask-toggle");
+	const closeBtn = document.getElementById("ask-close");
+	const iconChat = document.getElementById("ask-icon-chat");
+	const iconClose = document.getElementById("ask-icon-close");
+	const messages = document.getElementById("ask-messages");
+	const suggestions = document.getElementById("ask-suggestions");
+	const form = document.getElementById("ask-form");
+	const input = document.getElementById("ask-input");
+	const sendBtn = document.getElementById("ask-send");
+
+/** @type {{role: "user" | "assistant", content: string}[]} */
+	let history = [];
+	let sending = false;
+
+	// Open by default (this is the point - no click needed to see it), but once someone
+	// closes it, respect that for the rest of the tab session instead of forcing it back
+	// open on the next page they navigate to.
+	const DISMISSED_KEY = "ask-assistant-dismissed";
+	let open = sessionStorage.getItem(DISMISSED_KEY) !== "1";
+
+	function setOpen(next, { focus = true } = {}) {
+		open = next;
+		panel.classList.toggle("hidden", !open);
+		panel.setAttribute("aria-hidden", String(!open));
+		toggle.setAttribute("aria-expanded", String(open));
+		iconChat.classList.toggle("hidden", open);
+		iconClose.classList.toggle("hidden", !open);
+		sessionStorage.setItem(DISMISSED_KEY, open ? "0" : "1");
+		if (open && focus) input.focus();
+	}
+
+	setOpen(open, { focus: false });
+
+	toggle.addEventListener("click", () => setOpen(!open));
+	closeBtn.addEventListener("click", () => setOpen(false));
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape" && open) setOpen(false);
+	});
+	document.addEventListener("click", (event) => {
+		if (open && !root.contains(event.target)) setOpen(false);
+	});
+
+	function addBubble(role, text) {
+		const bubble = document.createElement("div");
+		const isUser = role === "user";
+		bubble.className = [
+			"max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
+			isUser
+				? "ml-auto rounded-br-sm bg-stone-900 text-stone-50"
+				: "mr-auto rounded-bl-sm border border-stone-200 bg-white text-stone-700",
+		].join(" ");
+		bubble.textContent = text;
+		messages.appendChild(bubble);
+		messages.scrollTop = messages.scrollHeight;
+		return bubble;
+	}
+
+	function addTypingIndicator() {
+		const bubble = document.createElement("div");
+		bubble.className =
+			"mr-auto flex items-center gap-1 rounded-2xl rounded-bl-sm border border-stone-200 bg-white px-4 py-3";
+		bubble.innerHTML =
+			'<span class="h-1.5 w-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:-0.3s]"></span>' +
+			'<span class="h-1.5 w-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:-0.15s]"></span>' +
+			'<span class="h-1.5 w-1.5 animate-bounce rounded-full bg-stone-400"></span>';
+		messages.appendChild(bubble);
+		messages.scrollTop = messages.scrollHeight;
+		return bubble;
+	}
+
+	async function sendMessage(text) {
+		if (sending || !text.trim()) return;
+		sending = true;
+		sendBtn.disabled = true;
+		suggestions?.remove();
+
+		addBubble("user", text);
+		const typing = addTypingIndicator();
+
+		try {
+			if (!API_URL) throw new Error("missing API URL");
+
+			const response = await fetch(`${API_URL}/chat`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ message: text, history }),
+			});
+			if (!response.ok) throw new Error(`request failed: ${response.status}`);
+
+			const data = await response.json();
+			typing.remove();
+			addBubble("assistant", data.reply);
+			history.push({ role: "user", content: text }, { role: "assistant", content: data.reply });
+		} catch (error) {
+			console.error("ask-assistant:", error);
+			typing.remove();
+			addBubble("assistant", "Hmm, I couldn't reach the server just now - mind trying again in a bit?");
+		} finally {
+			sending = false;
+			sendBtn.disabled = false;
+		}
+	}
+
+	form.addEventListener("submit", (event) => {
+		event.preventDefault();
+		const text = input.value;
+		input.value = "";
+		sendMessage(text);
+	});
+
+	suggestions?.addEventListener("click", (event) => {
+		const target = event.target;
+		if (!(target instanceof HTMLElement) || !target.classList.contains("ask-suggestion")) return;
+		sendMessage(target.textContent?.trim() ?? "");
+	});
+</script>

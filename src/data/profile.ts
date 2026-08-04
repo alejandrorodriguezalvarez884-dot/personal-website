@@ -234,6 +234,18 @@ const RAW = "https://raw.githubusercontent.com/alejandrorodriguezalvarez884-dot"
 // Ordered reverse-chronologically (most recent first) by creation/activity date on GitHub.
 export const projects: Project[] = [
   {
+    name: "Ask My Site",
+    description:
+      "The AI assistant on this very site (bottom-right corner) — a small FastAPI backend that answers visitor questions about me directly, grounded in my own CV and background instead of guessing.",
+    details: [
+      "A retriever (BM25 over keyword overlap - no vector database needed for a handful of documents) pulls the most relevant chunks from my CV and other notes, a persona layer combines them with a fixed \"who I am\" prompt, and a single call to Claude generates the answer. Layered backend architecture (controllers / domain / infrastructure / service layer), deployed on Google Cloud Run with the API key kept in Secret Manager.",
+      "The chat widget itself (this component) is framework-free - a small Astro component with vanilla JS calling the backend's POST /chat endpoint directly from the browser, CORS-locked to this site's origin.",
+    ],
+    url: `${GH}/ask-my-site`,
+    tags: ["Python", "FastAPI", "Claude API", "BM25", "Google Cloud Run", "Astro"],
+    period: "Aug 2026",
+  },
+  {
     name: "KD Boundaries",
     description:
       "A visual knowledge-distillation lab: trains a teacher and a student (with and without distillation) on 2D datasets and compares their decision boundaries, showing what the student actually learns from the teacher beyond accuracy.",
@@ -340,10 +352,5 @@ export const upcomingProjects: UpcomingProject[] = [
     name: "LLM Compression to a 16GB Ceiling",
     description:
       "Applying the classic Deep Compression pipeline (Han et al., 2015) — magnitude pruning, k-means weight-sharing quantization, and Huffman coding — to a ~7B-parameter LLM sized to sit right at the edge of 16GB of RAM, entirely post-training with no full retraining, then comparing the result against modern quantization methods like GPTQ and AWQ.",
-  },
-  {
-    name: "AI Assistant for This Site",
-    description:
-      "Adding an AI assistant to this website that can answer visitor questions about me directly — my background, experience, and projects — using this site's own content as context.",
   },
 ];
