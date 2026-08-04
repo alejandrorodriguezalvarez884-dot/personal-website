@@ -241,6 +241,8 @@ export const projects: Project[] = [
       "A retriever (BM25 over keyword overlap - no vector database needed for a handful of documents) pulls the most relevant chunks from my CV and other notes, a persona layer combines them with a fixed \"who I am\" prompt, and a single call to Claude generates the answer. Layered backend architecture (controllers / domain / infrastructure / service layer), deployed on Google Cloud Run with the API key kept in Secret Manager.",
       "The chat widget itself (this component) is framework-free - a small Astro component with vanilla JS calling the backend's POST /chat endpoint directly from the browser, CORS-locked to this site's origin.",
     ],
+    image: `${RAW}/ask-my-site/main/docs/assets/cover.png`,
+    imageAlt: "Ask My Site cover: a chat interface mockup answering \"What does Alex actually work on?\" with FastAPI, BM25, and Claude tags",
     url: `${GH}/ask-my-site`,
     tags: ["Python", "FastAPI", "Claude API", "BM25", "Google Cloud Run", "Astro"],
     period: "Aug 2026",
