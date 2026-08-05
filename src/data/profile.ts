@@ -399,4 +399,19 @@ export const upcomingProjects: UpcomingProject[] = [
     description:
       "Applying the classic Deep Compression pipeline (magnitude pruning, k-means weight-sharing quantization, and Huffman coding, from Han et al., 2015) to a ~7B-parameter LLM sized to sit right at the edge of 16GB of RAM, entirely post-training with no full retraining, then comparing the result against modern quantization methods like GPTQ and AWQ.",
   },
+  {
+    name: "GPTQ and AWQ from Scratch",
+    description:
+      "Reimplementing both post-training quantization algorithms by hand in plain PyTorch, with no official library: GPTQ with its layer-wise Hessian second-order approximation and error compensation, AWQ with its per-channel scale search. Benchmarked as perplexity against bit width on models small enough to run on a laptop (Qwen 0.5B, Llama 3.2 1B).",
+  },
+  {
+    name: "Structured Pruning Benchmark",
+    description:
+      "Magnitude pruning, Wanda, SparseGPT and LLM-Pruner run on the same model under one identical evaluation protocol. Almost nobody compares these under matched conditions, so the value is in the honesty and reproducibility of the setup, and in reporting real inference cost rather than just parameter counts.",
+  },
+  {
+    name: "Layer-wise Compression Profiler",
+    description:
+      "A tool that takes a model and works out which layers are most sensitive to quantization and pruning, via Fisher information, Hessian sensitivity or plain ablation, then proposes a mixed-precision bit allocation from the result. Infrastructure rather than a toy.",
+  },
 ];
