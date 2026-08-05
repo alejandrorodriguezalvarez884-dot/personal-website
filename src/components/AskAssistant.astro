@@ -27,10 +27,15 @@ const defaultPrompts: PromptSet = {
 const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/, "")] ?? defaultPrompts;
 ---
 
-<div id="ask-assistant" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+{/* The wrapper spans the full width on mobile so the panel can too; it is
+    pointer-events-none so that empty strip never swallows taps on the page. */}
+<div
+	id="ask-assistant"
+	class="pointer-events-none fixed inset-x-4 bottom-4 z-50 flex flex-col items-end sm:inset-x-auto sm:bottom-6 sm:right-6"
+>
 	<section
 		id="ask-panel"
-		class="mb-4 flex h-[32rem] max-h-[70vh] w-[22rem] max-w-[calc(100vw-3rem)] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl"
+		class="pointer-events-auto mb-3 flex h-[70svh] max-h-[32rem] w-full origin-bottom-right flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl sm:mb-4 sm:h-[32rem] sm:w-[22rem]"
 	>
 		<header class="flex items-center justify-between border-b border-stone-200 px-5 py-4">
 			<div class="flex items-center gap-3">
@@ -80,7 +85,7 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 				type="text"
 				autocomplete="off"
 				placeholder="Type a question..."
-				class="flex-1 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-stone-400 focus:outline-none"
+				class="w-full min-w-0 flex-1 rounded-full border border-stone-300 bg-white px-4 py-2 text-base text-stone-800 placeholder-stone-400 focus:border-stone-400 focus:outline-none sm:text-sm"
 			/>
 			<button
 				id="ask-send"
@@ -97,13 +102,22 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 		</form>
 	</section>
 
-	<button
-		id="ask-toggle"
-		type="button"
-		aria-label="Open chat"
-		aria-expanded="false"
-		class="relative flex h-14 w-14 items-center justify-center rounded-full bg-stone-900 text-stone-50 shadow-lg transition-transform hover:scale-105 hover:bg-stone-700"
-	>
+	<div class="pointer-events-auto flex items-center gap-2.5">
+		{/* Replaces auto-opening on mobile: the widget still announces itself, but
+		    without covering the page the visitor came to read. */}
+		<span
+			id="ask-hint"
+			class="rounded-full bg-white/95 px-3 py-1.5 text-xs font-medium text-stone-600 shadow-md ring-1 ring-stone-200 backdrop-blur"
+		>
+			Ask me anything
+		</span>
+		<button
+			id="ask-toggle"
+			type="button"
+			aria-label="Open chat"
+			aria-expanded="false"
+			class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-stone-900 text-stone-50 shadow-lg transition-transform hover:scale-105 hover:bg-stone-700"
+		>
 		<span class="absolute right-0.5 top-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
 		<svg id="ask-icon-chat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
 			<path
@@ -115,8 +129,9 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 			<path
 				d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
 			></path>
-		</svg>
-	</button>
+			</svg>
+		</button>
+	</div>
 </div>
 
 <script define:vars={{ API_URL }}>
@@ -136,26 +151,38 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 	let history = [];
 	let sending = false;
 
-	// Open by default (this is the point - no click needed to see it), but once someone
-	// closes it, respect that for the rest of the tab session instead of forcing it back
-	// open on the next page they navigate to.
+	const hint = document.getElementById("ask-hint");
+
+	// On a phone the open panel is most of the screen, so it stays closed there and the
+	// "Ask me anything" pill does the advertising instead. On a wider screen it still
+	// opens on its own - that was the whole point of the widget.
+	const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
+	// Once someone closes it, respect that for the rest of the tab session instead of
+	// forcing it back open on the next page they navigate to.
 	const DISMISSED_KEY = "ask-assistant-dismissed";
-	let open = sessionStorage.getItem(DISMISSED_KEY) !== "1";
+	let open = isDesktop && sessionStorage.getItem(DISMISSED_KEY) !== "1";
 
 	function setOpen(next, { focus = true } = {}) {
 		open = next;
 		panel.classList.toggle("hidden", !open);
 		panel.setAttribute("aria-hidden", String(!open));
 		toggle.setAttribute("aria-expanded", String(open));
+		toggle.setAttribute("aria-label", open ? "Close chat" : "Open chat");
 		iconChat.classList.toggle("hidden", open);
 		iconClose.classList.toggle("hidden", !open);
+		// The pill would sit awkwardly next to an open panel, and it has done its job
+		// once the panel has been opened at all.
+		hint?.classList.toggle("hidden", open);
 		sessionStorage.setItem(DISMISSED_KEY, open ? "0" : "1");
+		// Focusing the input scrolls a phone's keyboard over the page; only do it when
+		// the visitor deliberately opened the panel.
 		if (open && focus) input.focus();
 	}
 
 	setOpen(open, { focus: false });
 
-	toggle.addEventListener("click", () => setOpen(!open));
+	toggle.addEventListener("click", () => setOpen(!open, { focus: isDesktop }));
 	closeBtn.addEventListener("click", () => setOpen(false));
 
 	document.addEventListener("keydown", (event) => {

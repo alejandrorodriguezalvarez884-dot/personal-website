@@ -1,0 +1,70 @@
+---
+import { projects, featuredProjectNames } from "../data/profile";
+
+// Keep the order declared in featuredProjectNames rather than the order in `projects`,
+// and silently skip any name that no longer matches a project.
+const featured = featuredProjectNames
+  .map((name) => projects.find((project) => project.name === name))
+  .filter((project) => project !== undefined);
+---
+
+<section class="border-b border-stone-200">
+	<div class="mx-auto max-w-5xl px-6 py-16 sm:py-24">
+		<div class="flex flex-wrap items-end justify-between gap-4">
+			<div>
+				<h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">Selected work</h2>
+				<p class="mt-3 font-serif text-2xl text-stone-900 sm:text-3xl">Things I built and wrote about</p>
+			</div>
+			<a
+				href="/projects/"
+				class="group inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
+			>
+				All projects
+				<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-4 w-4 transition-transform group-hover:translate-x-0.5">
+					<path
+						fill-rule="evenodd"
+						d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+						clip-rule="evenodd"></path>
+				</svg>
+			</a>
+		</div>
+
+		<div class="mt-8 grid gap-4 sm:mt-10 sm:gap-6 md:grid-cols-3">
+			{
+				featured.map((project) => (
+					<a
+						href="/projects/"
+						class="group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all hover:border-stone-300 hover:shadow-lg hover:shadow-stone-200/60"
+					>
+						{/* object-contain, not cover: these are wide diagrams and screenshots, and
+						    cropping them to fill the box cuts off the part that makes them readable. */}
+						{project.image && (
+							<div class="aspect-[16/10] overflow-hidden border-b border-stone-100 bg-stone-950">
+								<img
+									src={project.image}
+									alt=""
+									loading="lazy"
+									class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+								/>
+							</div>
+						)}
+						<div class="flex flex-1 flex-col p-5 sm:p-6">
+							<div class="flex items-baseline justify-between gap-3">
+								<h3 class="font-serif text-lg font-semibold text-stone-900 transition-colors group-hover:text-emerald-700">
+									{project.name}
+								</h3>
+								<span class="shrink-0 text-xs text-stone-400">{project.period}</span>
+							</div>
+							<p class="mt-2 line-clamp-4 text-sm leading-relaxed text-stone-600">{project.description}</p>
+							<ul class="mt-4 flex flex-wrap gap-1.5">
+								{project.tags.slice(0, 3).map((tag) => (
+									<li class="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium text-stone-500">{tag}</li>
+								))}
+							</ul>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>

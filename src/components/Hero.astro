@@ -1,39 +1,160 @@
 ---
-import { profile } from "../data/profile";
+import { profile, heroStats } from "../data/profile";
+
+// The full name is long enough that at hero sizes it wraps unpredictably, so we
+// control the break ourselves: first name on one line, surnames on the next.
+const [firstName, ...surnames] = profile.name.split(" ");
 ---
 
-<section class="mx-auto max-w-3xl px-6 pb-20 pt-16 sm:pt-24">
-	<p class="mb-4 text-sm font-medium uppercase tracking-widest text-emerald-700">
-		{profile.role}
-	</p>
-	<h1 class="font-serif text-4xl font-semibold leading-tight text-stone-900 sm:text-5xl">
-		{profile.name}
-	</h1>
-	<p class="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
-		{profile.tagline}
-	</p>
-	<div class="mt-8 flex flex-wrap items-center gap-4">
-		<a
-			href={`mailto:${profile.email}`}
-			class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition-colors hover:bg-stone-700"
-		>
-			Get in touch
-		</a>
-		<a
-			href={profile.socials.github}
-			target="_blank"
-			rel="noreferrer"
-			class="rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400 hover:text-stone-900"
-		>
-			GitHub
-		</a>
-		<a
-			href={profile.socials.linkedin}
-			target="_blank"
-			rel="noreferrer"
-			class="rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400 hover:text-stone-900"
-		>
-			LinkedIn
-		</a>
+<section data-hero class="relative isolate overflow-hidden bg-stone-950">
+	<div class="hero-glow" aria-hidden="true"></div>
+	<div class="hero-grid" aria-hidden="true"></div>
+
+	<div class="mx-auto flex min-h-svh max-w-5xl flex-col justify-center px-6 pb-20 pt-24 sm:pb-24 sm:pt-28">
+		<p class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-emerald-400 sm:text-xs">
+			<span class="relative flex h-2 w-2 shrink-0">
+				<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+				<span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+			</span>
+			<span>{profile.role}</span>
+			<span class="text-emerald-400/40">/</span>
+			<span class="text-stone-400">{profile.location}</span>
+		</p>
+
+		<h1 class="mt-5 font-serif text-[2.6rem] font-semibold leading-[1.02] tracking-tight text-white sm:mt-6 sm:text-6xl lg:text-7xl">
+			{firstName}
+			<span class="block text-stone-400">{surnames.join(" ")}</span>
+		</h1>
+
+		<p class="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-stone-300 sm:mt-8 sm:text-2xl sm:leading-snug">
+			{profile.headline}
+		</p>
+
+		<div class="mt-9 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+			<a
+				href="/projects/"
+				class="group inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-stone-950 transition-colors hover:bg-emerald-400"
+			>
+				See my work
+				<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-4 w-4 transition-transform group-hover:translate-x-0.5">
+					<path
+						fill-rule="evenodd"
+						d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+						clip-rule="evenodd"></path>
+				</svg>
+			</a>
+			<a
+				href="/contact/"
+				class="inline-flex items-center justify-center rounded-full border border-stone-700 px-6 py-3 text-sm font-semibold text-stone-200 transition-colors hover:border-stone-500 hover:text-white"
+			>
+				Get in touch
+			</a>
+			<div class="mt-1 flex items-center gap-5 sm:ml-2 sm:mt-0">
+				<a
+					href={profile.socials.github}
+					target="_blank"
+					rel="noreferrer"
+					class="text-sm text-stone-400 underline-offset-4 transition-colors hover:text-white hover:underline"
+				>
+					GitHub
+				</a>
+				<a
+					href={profile.socials.linkedin}
+					target="_blank"
+					rel="noreferrer"
+					class="text-sm text-stone-400 underline-offset-4 transition-colors hover:text-white hover:underline"
+				>
+					LinkedIn
+				</a>
+			</div>
+		</div>
+
+		<dl class="mt-12 grid max-w-xl grid-cols-3 gap-4 border-t border-stone-800 pt-6 sm:mt-16 sm:gap-8 sm:pt-8">
+			{
+				heroStats.map((stat) => (
+					<div>
+						<dt class="font-serif text-2xl font-semibold text-white sm:text-3xl">{stat.value}</dt>
+						<dd class="mt-1 text-xs leading-snug text-stone-500 sm:text-sm">{stat.label}</dd>
+					</div>
+				))
+			}
+		</dl>
 	</div>
+
+	<a
+		href="#focus"
+		aria-label="Scroll to content"
+		class="absolute bottom-5 left-1/2 hidden -translate-x-1/2 text-stone-600 transition-colors hover:text-stone-300 sm:block"
+	>
+		<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="hero-chevron h-6 w-6">
+			<path
+				fill-rule="evenodd"
+				d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
+				clip-rule="evenodd"></path>
+		</svg>
+	</a>
 </section>
+
+<style>
+	/* Two soft emerald light sources behind the hero. Kept in CSS rather than
+	   arbitrary Tailwind values because of the long blur radii and gradients. */
+	.hero-glow {
+		position: absolute;
+		inset: 0;
+		z-index: -10;
+		overflow: hidden;
+	}
+	.hero-glow::before,
+	.hero-glow::after {
+		content: "";
+		position: absolute;
+		border-radius: 9999px;
+		filter: blur(110px);
+	}
+	.hero-glow::before {
+		top: -25%;
+		left: 50%;
+		width: 36rem;
+		height: 36rem;
+		transform: translateX(-50%);
+		background: rgba(16, 185, 129, 0.18);
+	}
+	.hero-glow::after {
+		right: -15%;
+		bottom: -30%;
+		width: 28rem;
+		height: 28rem;
+		background: rgba(52, 211, 153, 0.1);
+	}
+
+	/* Faint technical grid, faded out towards the bottom so it never fights the copy. */
+	.hero-grid {
+		position: absolute;
+		inset: 0;
+		z-index: -10;
+		background-image:
+			linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+			linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+		background-size: 4rem 4rem;
+		mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 40%, transparent 100%);
+	}
+
+	.hero-chevron {
+		animation: hero-bob 2.4s ease-in-out infinite;
+	}
+	@keyframes hero-bob {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(0.35rem);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-chevron {
+			animation: none;
+		}
+	}
+</style>

@@ -1,25 +1,35 @@
 ---
 import { profile } from "../data/profile";
+
+interface Props {
+  /** The dedicated /contact page renders this heading as the page's h1. */
+  heading?: "h1" | "h2";
+}
+
+const { heading = "h2" } = Astro.props;
+const Heading = heading;
 ---
 
-<section class="mx-auto max-w-3xl px-6 pb-16 pt-16 sm:pt-24">
-	<div class="rounded-2xl border border-stone-200 bg-white px-8 py-12 text-center">
-		<h2 class="font-serif text-2xl font-semibold text-stone-900">Get in touch</h2>
-		<p class="mx-auto mt-3 max-w-md text-stone-600">
-			Feel free to reach out — I'll get back to you as soon as possible.
+<section class="px-5 py-12 sm:px-6 sm:py-20">
+	<div class="mx-auto max-w-3xl overflow-hidden rounded-3xl bg-stone-950 px-6 py-12 text-center sm:px-12 sm:py-16">
+		<p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-400">Contact</p>
+		<Heading class="mt-4 font-serif text-2xl font-semibold text-white sm:text-4xl">Let's build something</Heading>
+		<p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-stone-400 sm:text-base">
+			Open to interesting problems in agentic systems and model efficiency. I'll get back to you as soon as I can.
 		</p>
-		<div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+
+		<div class="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
 			<a
 				href={`mailto:${profile.email}`}
-				class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition-colors hover:bg-stone-700"
+				class="rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-stone-950 transition-colors hover:bg-emerald-400"
 			>
-				{profile.email}
+				Email me
 			</a>
 			<a
 				href={profile.socials.linkedin}
 				target="_blank"
 				rel="noreferrer"
-				class="rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400 hover:text-stone-900"
+				class="rounded-full border border-stone-700 px-6 py-3 text-sm font-semibold text-stone-200 transition-colors hover:border-stone-500 hover:text-white"
 			>
 				LinkedIn
 			</a>
@@ -27,10 +37,18 @@ import { profile } from "../data/profile";
 				href={profile.socials.github}
 				target="_blank"
 				rel="noreferrer"
-				class="rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:border-stone-400 hover:text-stone-900"
+				class="rounded-full border border-stone-700 px-6 py-3 text-sm font-semibold text-stone-200 transition-colors hover:border-stone-500 hover:text-white"
 			>
 				GitHub
 			</a>
 		</div>
+
+		{/* The address is long enough to overflow a pill on a 360px screen, so it sits
+		    on its own line under the buttons rather than inside one. */}
+		<p class="mt-6 break-words text-xs text-stone-500 sm:text-sm">
+			<a href={`mailto:${profile.email}`} class="underline underline-offset-4 transition-colors hover:text-stone-300">
+				{profile.email}
+			</a>
+		</p>
 	</div>
 </section>

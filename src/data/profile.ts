@@ -2,7 +2,12 @@
 
 export const profile = {
   name: "Alejandro Rodríguez Álvarez",
+  // Shown instead of the full name where horizontal space is tight (mobile nav).
+  shortName: "Alejandro R. Á.",
   role: "AI Engineer",
+  // Short, punchy version for the hero. `tagline` stays the longer, descriptive
+  // sentence used for <meta name="description">.
+  headline: "I build autonomous agentic systems — and compress large language models until they run anywhere.",
   tagline:
     "AI Engineer building autonomous, agentic systems and optimizing LLMs for efficient, high-performance deployment.",
   bio: [
@@ -16,6 +21,45 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/alejandro-rodr%C3%ADguez-%C3%A1lvarez-58051021b/",
   },
 };
+
+// Three numbers under the hero, meant to be read in a second before any scrolling.
+export const heroStats = [
+  { value: "5+", label: "years shipping AI & data" },
+  { value: "PhD", label: "in progress · AI, UCM" },
+  { value: "6", label: "open-source projects" },
+];
+
+export type FocusArea = {
+  title: string;
+  description: string;
+  tags: string[];
+};
+
+// The "what I actually do" layer: the first thing after the hero, so a visitor gets
+// the shape of the work before committing to the full CV further down.
+export const focusAreas: FocusArea[] = [
+  {
+    title: "Agentic systems",
+    description:
+      "Autonomous multi-agent workflows that plan, call tools and carry real business processes end to end — not chatbots.",
+    tags: ["LangGraph", "MCP", "RAG", "AgentOps"],
+  },
+  {
+    title: "LLM efficiency",
+    description:
+      "Making large models small: quantum-inspired compression, quantization and knowledge distillation, down to models that run on a laptop CPU.",
+    tags: ["Distillation", "Quantization", "LoRA", "PyTorch"],
+  },
+  {
+    title: "Production engineering",
+    description:
+      "The unglamorous half: layered backends, CI/CD, secret management and cloud deployments that survive contact with real users.",
+    tags: ["FastAPI", "Docker", "GCP", "AWS"],
+  },
+];
+
+// Highlighted on the home page as a teaser; the full list lives on /projects.
+export const featuredProjectNames = ["Ask My Site", "KD Boundaries", "LLM Router"];
 
 export type SubRole = {
   title: string;
