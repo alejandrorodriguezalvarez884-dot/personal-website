@@ -1,4 +1,4 @@
-// Centralized site data. Edit these values with your real information.
+﻿// Centralized site data. Edit these values with your real information.
 
 export const profile = {
   name: "Alejandro Rodríguez Álvarez",
@@ -7,12 +7,12 @@ export const profile = {
   role: "AI Engineer",
   // Short, punchy version for the hero. `tagline` stays the longer, descriptive
   // sentence used for <meta name="description">.
-  headline: "I build autonomous agentic systems — and compress large language models until they run anywhere.",
+  headline: "I build autonomous agentic systems, and I optimize AI models so they run more efficiently.",
   tagline:
-    "AI Engineer building autonomous, agentic systems and optimizing LLMs for efficient, high-performance deployment.",
+    "AI Engineer building autonomous, agentic systems and optimizing AI models for efficient, high-performance deployment.",
   bio: [
-    "I'm an AI Engineer with a strong command of software development and extensive experience designing and implementing agentic systems — autonomous workflows that leverage AI and advanced reasoning to solve complex business challenges.",
-    "I also have deep technical knowledge of LLM architectures, particularly model compression and efficiency, and I'm skilled at optimizing large language models for high-performance, resource-efficient deployment.",
+    "I'm an AI Engineer with a strong command of software development and extensive experience designing and implementing agentic systems: autonomous workflows that leverage AI and advanced reasoning to solve complex business challenges.",
+    "I also have deep technical knowledge of LLM architectures, particularly around efficiency, and I'm skilled at optimizing AI models so they run faster and lighter without giving up quality.",
   ],
   location: "Madrid, Spain",
   email: "alejandrorodriguezalvarez884@gmail.com",
@@ -41,13 +41,13 @@ export const focusAreas: FocusArea[] = [
   {
     title: "Agentic systems",
     description:
-      "Autonomous multi-agent workflows that plan, call tools and carry real business processes end to end — not chatbots.",
+      "Autonomous multi-agent workflows that plan, call tools and carry real business processes end to end. Not chatbots.",
     tags: ["LangGraph", "MCP", "RAG", "AgentOps"],
   },
   {
-    title: "LLM efficiency",
+    title: "Model efficiency",
     description:
-      "Making large models small: quantum-inspired compression, quantization and knowledge distillation, down to models that run on a laptop CPU.",
+      "Optimizing AI models so they run more efficiently: quantum-inspired methods, quantization and knowledge distillation, down to models that fit on a laptop CPU.",
     tags: ["Distillation", "Quantization", "LoRA", "PyTorch"],
   },
   {
@@ -90,7 +90,7 @@ export const experience: Experience[] = [
     client: "Solera Holdings",
     clientUrl: "https://www.solera.com",
     location: "Madrid, Spain",
-    period: "Jul 2026 — Present",
+    period: "Jul 2026 - Present",
     bullets: [
       "Working as an independent consultant engaged through Korn Ferry on the Solera Holdings account, optimizing internal processes at every level using generative AI.",
     ],
@@ -100,7 +100,7 @@ export const experience: Experience[] = [
     company: "Multiverse Computing",
     companyUrl: "https://multiversecomputing.com",
     location: "Zaragoza, Spain",
-    period: "Jan 2026 — Jun 2026",
+    period: "Jan 2026 - Jun 2026",
     bullets: [
       "Project Owner and technical lead for the project's development efforts, co-directing the technical direction alongside the project manager.",
       "Planned, prioritized, and assigned technical tasks to the team, ensuring delivery quality.",
@@ -114,7 +114,7 @@ export const experience: Experience[] = [
     company: "Universidad Politécnica de Madrid",
     companyUrl: "https://www.upm.es",
     location: "Madrid, Spain",
-    period: "Dec 2025 — Jun 2026",
+    period: "Dec 2025 - Jun 2026",
     bullets: [
       "Part-time contract for a fixed 6-month period.",
       "Developed a digital twin to optimize the blood transfusion chain in a Spanish region, covering both frontend (Streamlit) and backend development.",
@@ -126,11 +126,11 @@ export const experience: Experience[] = [
     company: "Dentsu",
     companyUrl: "https://www.dentsu.com",
     location: "Madrid, Spain",
-    period: "Jan 2023 — Dec 2025",
+    period: "Jan 2023 - Dec 2025",
     subroles: [
       {
         title: "AI & Data Science Senior",
-        period: "Jan 2025 — Dec 2025",
+        period: "Jan 2025 - Dec 2025",
         bullets: [
           "Technical lead for a team of three engineers: creating and assigning tasks, resolving technical queries, and reviewing and approving merge requests.",
           "Developed AI-powered solutions for optimizing internal company processes, including GenAI applications.",
@@ -139,7 +139,7 @@ export const experience: Experience[] = [
       },
       {
         title: "AI & Data Science Junior",
-        period: "Jul 2023 — Dec 2024",
+        period: "Jul 2023 - Dec 2024",
         bullets: [
           "Implemented the modeling methodology developed during the internship within the team, on projects to optimize media investment mix.",
           "Delivered presentations and worked in direct contact with clients.",
@@ -157,7 +157,7 @@ export const experience: Experience[] = [
       },
       {
         title: "Internship",
-        period: "Jan 2023 — Jun 2023",
+        period: "Jan 2023 - Jun 2023",
         bullets: ["Methodological development of an econometric modeling tool based on Bayesian inference."],
         tech: ["OOP (Python)", "CloudSQL"],
       },
@@ -168,18 +168,18 @@ export const experience: Experience[] = [
     company: "Minsait",
     companyUrl: "https://www.minsait.com",
     location: "Alcobendas, Spain",
-    period: "Jul 2021 — Sep 2022",
+    period: "Jul 2021 - Sep 2022",
     subroles: [
       {
         title: "Data ingestion project for Santander Bank",
-        period: "Oct 2021 — Sep 2022",
+        period: "Oct 2021 - Sep 2022",
         bullets: [
           "ETL development and process automation using GCP tools such as Dataflow and Pub/Sub, Cloud Storage, and Python libraries such as PySpark and Selenium.",
         ],
       },
       {
         title: "Training period",
-        period: "Jul 2021 — Oct 2021",
+        period: "Jul 2021 - Oct 2021",
         bullets: [],
         tech: ["Spark", "OOP (Scala and Python)", "Git"],
       },
@@ -201,7 +201,7 @@ export const education: Education[] = [
     degree: "PhD, Computer Science (AI specialization)",
     institution: "Universidad Complutense de Madrid",
     location: "Madrid, Spain",
-    period: "Sep 2024 — Present",
+    period: "Sep 2024 - Present",
     description:
       "Research area: deep-learning-based models for the prediction and detection of anomalous medical events.",
   },
@@ -209,7 +209,7 @@ export const education: Education[] = [
     degree: "M.Sc. Mathematical Engineering",
     institution: "Universidad Complutense de Madrid",
     location: "Madrid, Spain",
-    period: "Sep 2022 — Jun 2023",
+    period: "Sep 2022 - Jun 2023",
     description:
       "Mathematical Finance branch. Thesis: Bayesian inference as an analysis and forecasting tool in the marketing and advertising sector.",
   },
@@ -217,14 +217,14 @@ export const education: Education[] = [
     degree: "B.Sc. Physics",
     institution: "Universidad Autónoma de Madrid",
     location: "Madrid, Spain",
-    period: "Sep 2017 — Jun 2021",
+    period: "Sep 2017 - Jun 2021",
     description: "Thesis: Solid-state hydrogen storage.",
   },
   {
     degree: "Bachillerato",
     institution: "Liceo Italiano de Madrid",
     location: "Madrid, Spain",
-    period: "Sep 2015 — Jun 2017",
+    period: "Sep 2015 - Jun 2017",
   },
 ];
 
@@ -280,7 +280,7 @@ export const projects: Project[] = [
   {
     name: "Ask My Site",
     description:
-      "The AI assistant on this very site (bottom-right corner) — a small FastAPI backend that answers visitor questions about me directly, grounded in my own CV and background instead of guessing.",
+      "The AI assistant on this very site (bottom-right corner). A small FastAPI backend that answers visitor questions about me directly, grounded in my own CV and background instead of guessing.",
     details: [
       "A retriever (BM25 over keyword overlap - no vector database needed for a handful of documents) pulls the most relevant chunks from my CV and other notes, a persona layer combines them with a fixed \"who I am\" prompt, and a single call to Claude generates the answer. Layered backend architecture (controllers / domain / infrastructure / service layer), deployed on Google Cloud Run with the API key kept in Secret Manager.",
       "The chat widget itself (this component) is framework-free - a small Astro component with vanilla JS calling the backend's POST /chat endpoint directly from the browser, CORS-locked to this site's origin.",
@@ -296,8 +296,8 @@ export const projects: Project[] = [
     description:
       "A visual knowledge-distillation lab: trains a teacher and a student (with and without distillation) on 2D datasets and compares their decision boundaries, showing what the student actually learns from the teacher beyond accuracy.",
     details: [
-      "Every experiment plots three panels side by side — teacher, student trained on hard labels only, and an architecturally identical student distilled from the teacher — so instead of comparing accuracy numbers you can literally see the boundary each model settled on. On datasets with a real \"void\" (regions with no training data, like the XOR-blobs case pictured), the no-KD student and the teacher resolve the ambiguity differently, while the KD student — trained on extra teacher-labeled query points sampled from that empty region — reproduces the teacher's exact boundary almost perfectly.",
-      "Two further experiments (overlapping blobs, a biased teacher) show the same mechanism from the opposite angle: when there's no void to fill, KD instead transfers the teacher's calibration — including its flaws, like overconfidence or a spurious shortcut feature — which the README argues is structurally the same effect behind why sequence-level distillation works for LLMs, not just a toy analogy.",
+      "Every experiment plots three panels side by side (teacher, student trained on hard labels only, and an architecturally identical student distilled from the teacher), so instead of comparing accuracy numbers you can literally see the boundary each model settled on. On datasets with a real \"void\" (regions with no training data, like the XOR-blobs case pictured), the no-KD student and the teacher resolve the ambiguity differently, while the KD student, trained on extra teacher-labeled query points sampled from that empty region, reproduces the teacher's exact boundary almost perfectly.",
+      "Two further experiments (overlapping blobs, a biased teacher) show the same mechanism from the opposite angle: when there's no void to fill, KD instead transfers the teacher's calibration, flaws included, like overconfidence or a spurious shortcut feature. The README argues that this is structurally the same effect behind why sequence-level distillation works for LLMs, not just a toy analogy.",
     ],
     image: `${RAW}/kd-boundaries/main/docs/assets/xor_boundaries.png`,
     imageAlt: "Three-panel decision boundary comparison: teacher, student without knowledge distillation, and student with knowledge distillation, on the XOR-blobs dataset",
@@ -310,8 +310,8 @@ export const projects: Project[] = [
     description:
       "Decomposes a prompt into subtasks with a single planning call to Claude, routes each one to the cheapest model capable of handling it (Haiku/Sonnet/Opus), and runs the independent ones in parallel.",
     details: [
-      "A single structured-output call to Claude plans the whole job: it breaks a prompt into a dependency graph of subtasks, assigns each one the cheapest model tier that can handle it, and is explicitly told that decomposition isn't free — every extra call has its own overhead — so it only splits work when parallelism or a cheaper tier is actually worth it.",
-      "The executor groups subtasks into dependency-respecting \"waves\" and fires every subtask in a wave concurrently via asyncio, so a wave takes as long as its slowest call rather than the sum of all of them; a final synthesis call stitches independent results back into one answer. Every call — planner, subtasks, synthesis, and a single-model baseline for comparison — logs its own tokens, cost, and latency, so the routed pipeline can be benchmarked against just sending the whole prompt to one large model.",
+      "A single structured-output call to Claude plans the whole job: it breaks a prompt into a dependency graph of subtasks, assigns each one the cheapest model tier that can handle it, and is explicitly told that decomposition isn't free (every extra call has its own overhead), so it only splits work when parallelism or a cheaper tier is actually worth it.",
+      "The executor groups subtasks into dependency-respecting \"waves\" and fires every subtask in a wave concurrently via asyncio, so a wave takes as long as its slowest call rather than the sum of all of them; a final synthesis call stitches independent results back into one answer. Every call (planner, subtasks, synthesis, and a single-model baseline for comparison) logs its own tokens, cost, and latency, so the routed pipeline can be benchmarked against just sending the whole prompt to one large model.",
     ],
     image: `${RAW}/llm-router/main/experiments/output/plan_shape.png`,
     imageAlt: "Chart showing how the planner decomposes more subtasks and execution waves as prompt complexity increases",
@@ -324,11 +324,11 @@ export const projects: Project[] = [
     description:
       "Local fine-tuning of a small LLM (LittleLamb, 290M parameters) on your own PDFs, with no vector databases or RAG: the knowledge lives in the model weights and runs entirely on CPU.",
     details: [
-      "Most \"chat with your PDFs\" tools reach for a full RAG stack — a vector database, an embedding model, a chunking/retrieval/reranking pipeline — even for a handful of documents. This project takes the opposite approach for small, stable document sets: extract the text (and describe any embedded images via Claude Vision), turn it into a Q&A training set, and LoRA fine-tune LittleLamb — a 290M-parameter model built by Multiverse Computing by compressing Qwen3-0.6B, state of the art for its size class — directly on the content.",
-      "The result runs entirely offline on a laptop CPU: a FastAPI server exposes an OpenAI-compatible endpoint, and a Streamlit chat UI lets you ask questions the model answers straight from what it learned — no retrieval step, no infrastructure.",
+      "Most \"chat with your PDFs\" tools reach for a full RAG stack (a vector database, an embedding model, a chunking/retrieval/reranking pipeline) even for a handful of documents. This project takes the opposite approach for small, stable document sets: extract the text (and describe any embedded images via Claude Vision), turn it into a Q&A training set, and LoRA fine-tune LittleLamb directly on the content. LittleLamb is a 290M-parameter model built by Multiverse Computing from Qwen3-0.6B, state of the art for its size class.",
+      "The result runs entirely offline on a laptop CPU: a FastAPI server exposes an OpenAI-compatible endpoint, and a Streamlit chat UI lets you ask questions the model answers straight from what it learned. No retrieval step, no infrastructure.",
     ],
     image: `${RAW}/custom-llm-finetuning/main/docs/ui-screenshot.png`,
-    imageAlt: "LittleLamb Document Chat — a Streamlit chat interface for querying the fine-tuned model",
+    imageAlt: "LittleLamb Document Chat: a Streamlit chat interface for querying the fine-tuned model",
     url: `${GH}/custom-llm-finetuning`,
     tags: ["Python", "LoRA", "Hugging Face", "FastAPI", "Streamlit"],
     period: "May 2026",
@@ -338,7 +338,7 @@ export const projects: Project[] = [
     description:
       "Autonomous AI agent that lives on Moltbook, the social network for AI agents. Uses Claude as its reasoning model, deploys on Google Cloud Run, and is triggered every 5 minutes via Cloud Scheduler.",
     details: [
-      "Every 5 minutes, Cloud Scheduler hits a FastAPI heartbeat endpoint on Cloud Run, which asks Claude to decide what the agent should do next, persists its evolving state to Firestore, and posts back to Moltbook through a small API client — a self-registering agent that runs unattended, with no human in the loop.",
+      "Every 5 minutes, Cloud Scheduler hits a FastAPI heartbeat endpoint on Cloud Run, which asks Claude to decide what the agent should do next, persists its evolving state to Firestore, and posts back to Moltbook through a small API client. It is a self-registering agent that runs unattended, with no human in the loop.",
       "Secrets never touch the codebase: API keys live in Secret Manager, and the service itself runs with --no-allow-unauthenticated so only Cloud Scheduler's OIDC token can ever trigger it.",
     ],
     url: `${GH}/moltbook-agent`,
@@ -350,12 +350,12 @@ export const projects: Project[] = [
     description:
       "Mobile tourist-guide app that generates AI-personalized points-of-interest information from the user's GPS location, in multiple languages.",
     details: [
-      "A full-stack side project built end to end: a Domain-Driven Design REST API, a PostgreSQL data layer, a React Native/Expo mobile client, and a second Flask/DDD service that calls Gemini to turn raw GPS coordinates into narrated points of interest — historical context, nearby landmarks, recommendations — on demand, in five languages.",
+      "A full-stack side project built end to end: a Domain-Driven Design REST API, a PostgreSQL data layer, a React Native/Expo mobile client, and a second Flask/DDD service that calls Gemini to turn raw GPS coordinates into narrated points of interest (historical context, nearby landmarks, recommendations) on demand, in five languages.",
       "It's the oldest project here and the one currently being actively rebuilt: the core AI pipeline and API already work end to end, the mobile app has its navigation shell in place, and the landing page is the next piece to build.",
     ],
     url: `${GH}/tourist-guide-backend`,
     tags: ["Python", "Flask", "DDD", "PostgreSQL", "React Native", "Gemini AI"],
-    period: "2025 — present",
+    period: "2025 - present",
     status: "in-progress",
     subprojects: [
       {
@@ -397,6 +397,6 @@ export const upcomingProjects: UpcomingProject[] = [
   {
     name: "LLM Compression to a 16GB Ceiling",
     description:
-      "Applying the classic Deep Compression pipeline (Han et al., 2015) — magnitude pruning, k-means weight-sharing quantization, and Huffman coding — to a ~7B-parameter LLM sized to sit right at the edge of 16GB of RAM, entirely post-training with no full retraining, then comparing the result against modern quantization methods like GPTQ and AWQ.",
+      "Applying the classic Deep Compression pipeline (magnitude pruning, k-means weight-sharing quantization, and Huffman coding, from Han et al., 2015) to a ~7B-parameter LLM sized to sit right at the edge of 16GB of RAM, entirely post-training with no full retraining, then comparing the result against modern quantization methods like GPTQ and AWQ.",
   },
 ];
