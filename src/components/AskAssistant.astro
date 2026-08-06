@@ -149,6 +149,12 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 
 /** @type {{role: "user" | "assistant", content: string}[]} */
 	let history = [];
+	// Ties to the same lifetime as `history` (resets on page load, not persisted) so the two
+	// always stay consistent - reusing a session_id from a previous page load without also
+	// resending its history would make the backend overwrite that conversation's saved
+	// transcript with just the new turn. Minted from the backend's response to the first
+	// message; every later message in this page load resends it.
+	let sessionId = null;
 	let sending = false;
 
 	const hint = document.getElementById("ask-hint");
@@ -238,7 +244,7 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 			const response = await fetch(`${API_URL}/chat`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ message: text, history }),
+				body: JSON.stringify({ message: text, history, session_id: sessionId }),
 			});
 			if (!response.ok) throw new Error(`request failed: ${response.status}`);
 
@@ -246,6 +252,7 @@ const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/
 			typing.remove();
 			addBubble("assistant", data.reply);
 			history.push({ role: "user", content: text }, { role: "assistant", content: data.reply });
+			sessionId = data.session_id;
 		} catch (error) {
 			console.error("ask-assistant:", error);
 			typing.remove();
