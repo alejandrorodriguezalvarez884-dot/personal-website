@@ -291,7 +291,7 @@ export const projects: Project[] = [
     imageAlt:
       "Earnings Radar company page: the readings of a company's latest results release, what changed since the previous one and how it compares with its peers",
     url: `${GH}/decision-signal-lab`,
-    liveUrl: "https://earnings-radar-3qwezbjyfq-ew.a.run.app/",
+    liveUrl: "https://earningsradar.app/",
     tags: ["Python", "FastAPI", "Perplexity Decisions API", "SEC EDGAR", "Google Cloud Run", "Astro"],
     period: "Oct 2026",
   },
