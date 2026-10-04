@@ -282,17 +282,17 @@ export const projects: Project[] = [
   {
     name: "Earnings Radar",
     description:
-      "A tool to analyse a company's latest results. Pick one of 99 S&P 100 companies and see what its latest results release says: whether guidance went up or down, how strong the results are, margin pressure, demand, tariffs, AI. Each reading comes with what changed since the previous release and how the company compares with its sector peers.",
+      "A tool to analyse any company's latest results. Type a company that files with the SEC and it fetches the latest results release from EDGAR and reads it on the spot: whether guidance went up or down, how strong the results are, margin pressure, demand, tariffs, AI. Each reading comes with what changed since the previous release and how the company compares with 99 large ones.",
     details: [
-      "A decision model reads every results release filed with the SEC and answers the same fixed questions each time, as probabilities. It began as an experiment on whether that reading could predict post-earnings returns. On 1,529 releases it could not, and the site's method page reports that null result. What the model did well was read, so the product is the reading: 2,200+ releases since 2021, with an agreement check against a second reader.",
-      "A Python pipeline pulls 8-K filings from EDGAR, cleans the press release, scores it through the Perplexity Decisions API with a spending cap and a permanent cache, and writes a JSON dataset. Updates run only when I start them; the site is static Astro on GitHub Pages and rebuilds from that file.",
+      "A decision model answers the same fixed questions for every release, as probabilities. It began as an experiment on whether that reading could predict post-earnings returns. On 1,529 releases it could not, and the site's method page reports that null result. What the model did well was read, so the product is the reading: on demand for any company, plus 2,200+ releases from 99 S&P 100 companies since 2021 that feed the market trends, with an agreement check against a second reader.",
+      "A FastAPI service on Google Cloud Run serves both the static Astro site and the API from one container. For a new company it finds the latest 8-K filings on EDGAR, cleans the press release, scores it through the Perplexity Decisions API and stores the reading in Cloud Storage, so each filing is paid for once. Spending is capped per request, per day and in total. Everything is run by hand from a Makefile.",
     ],
     image: `${RAW}/decision-signal-lab/main/docs/assets/radar-cover.jpg`,
     imageAlt:
       "Earnings Radar company page: the readings of a company's latest results release, what changed since the previous one and how it compares with its peers",
     url: `${GH}/decision-signal-lab`,
-    liveUrl: "https://alejandrorodriguezalvarez884-dot.github.io/decision-signal-lab/",
-    tags: ["Python", "Perplexity Decisions API", "SEC EDGAR", "Makefile", "Astro"],
+    liveUrl: "https://earnings-radar-3qwezbjyfq-ew.a.run.app/",
+    tags: ["Python", "FastAPI", "Perplexity Decisions API", "SEC EDGAR", "Google Cloud Run", "Astro"],
     period: "Oct 2026",
   },
   {
