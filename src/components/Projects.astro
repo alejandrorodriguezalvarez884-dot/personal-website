@@ -13,7 +13,7 @@ import { projects, upcomingProjects } from "../data/profile";
 			projects.map((project) => (
 				<article class="overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300">
 					{project.image && (
-						<a href={project.url} target="_blank" rel="noreferrer" class="block border-b border-stone-100 bg-stone-950">
+						<a href={project.liveUrl ?? project.url} target="_blank" rel="noreferrer" class="block border-b border-stone-100 bg-stone-950">
 							<img
 								src={project.image}
 								alt={project.imageAlt ?? project.name}
@@ -35,7 +35,7 @@ import { projects, upcomingProjects } from "../data/profile";
 
 						<h2 class="mt-2">
 							<a
-								href={project.url}
+								href={project.liveUrl ?? project.url}
 								target="_blank"
 								rel="noreferrer"
 								class="font-serif text-xl font-semibold text-stone-900 transition-colors hover:text-emerald-700 sm:text-2xl"
@@ -113,6 +113,21 @@ import { projects, upcomingProjects } from "../data/profile";
 									))}
 								</ul>
 							</details>
+						)}
+
+						{project.liveUrl && (
+							<a
+								href={project.liveUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="mr-5 mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-700 underline-offset-4 hover:underline"
+							>
+								Open the live site
+								<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-3.5 w-3.5">
+									<path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+									<path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+								</svg>
+							</a>
 						)}
 
 						<a
