@@ -282,14 +282,14 @@ export const projects: Project[] = [
   {
     name: "Earnings Radar",
     description:
-      "A live site that shows what S&P 100 companies say in their results releases, as data. A decision model reads each release filed with the SEC and answers the same fixed questions (guidance up or down, margin pressure, weakening demand, tariffs, AI), and the answers add up into trends by quarter, sector and company.",
+      "A tool to analyse a company's latest results. Pick one of 99 S&P 100 companies and see what its latest results release says: whether guidance went up or down, how strong the results are, margin pressure, demand, tariffs, AI. Each reading comes with what changed since the previous release and how the company compares with its sector peers.",
     details: [
-      "It began as an experiment on whether the model's reading could predict post-earnings returns. On 1,529 releases it could not, and the site's method page reports that null result. What the model did well was read, so the product is the reading: 2,200+ releases since 2021, a page per company, and an agreement check against a second reader.",
-      "A Python pipeline pulls 8-K filings from EDGAR, cleans the press release, scores it through the Perplexity Decisions API with a spending cap and a permanent cache, and writes a JSON dataset. A scheduled GitHub Action adds new filings and rebuilds the static Astro site on GitHub Pages.",
+      "A decision model reads every results release filed with the SEC and answers the same fixed questions each time, as probabilities. It began as an experiment on whether that reading could predict post-earnings returns. On 1,529 releases it could not, and the site's method page reports that null result. What the model did well was read, so the product is the reading: 2,200+ releases since 2021, with an agreement check against a second reader.",
+      "A Python pipeline pulls 8-K filings from EDGAR, cleans the press release, scores it through the Perplexity Decisions API with a spending cap and a permanent cache, and writes a JSON dataset. Updates run only when I start them; the site is static Astro on GitHub Pages and rebuilds from that file.",
     ],
     image: `${RAW}/decision-signal-lab/main/docs/assets/radar-cover.jpg`,
     imageAlt:
-      "Earnings Radar overview: share of S&P 100 companies that raised or lowered guidance each quarter since 2021",
+      "Earnings Radar company page: the readings of a company's latest results release, what changed since the previous one and how it compares with its peers",
     url: `${GH}/decision-signal-lab`,
     liveUrl: "https://alejandrorodriguezalvarez884-dot.github.io/decision-signal-lab/",
     tags: ["Python", "Perplexity Decisions API", "SEC EDGAR", "GitHub Actions", "Astro"],
