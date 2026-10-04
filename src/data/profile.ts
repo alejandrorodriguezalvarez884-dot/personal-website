@@ -292,7 +292,7 @@ export const projects: Project[] = [
       "Earnings Radar company page: the readings of a company's latest results release, what changed since the previous one and how it compares with its peers",
     url: `${GH}/decision-signal-lab`,
     liveUrl: "https://alejandrorodriguezalvarez884-dot.github.io/decision-signal-lab/",
-    tags: ["Python", "Perplexity Decisions API", "SEC EDGAR", "GitHub Actions", "Astro"],
+    tags: ["Python", "Perplexity Decisions API", "SEC EDGAR", "Makefile", "Astro"],
     period: "Oct 2026",
   },
   {
