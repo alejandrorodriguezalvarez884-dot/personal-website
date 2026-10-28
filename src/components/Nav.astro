@@ -8,9 +8,11 @@ interface Props {
 
 const { overlay = false } = Astro.props;
 
-const links = [
+// `shortLabel` is shown on phones, where four full labels plus the name don't fit.
+const links: { href: string; label: string; shortLabel?: string }[] = [
   { href: "/", label: "About" },
   { href: "/projects/", label: "Projects" },
+  { href: "/open-source/", label: "Open source", shortLabel: "OSS" },
   { href: "/contact/", label: "Contact" },
 ];
 
@@ -28,12 +30,12 @@ const isActive = (href: string) => (href === "/" ? currentPath === "/" : current
 		overlay ? "fixed inset-x-0 top-0" : "sticky top-0",
 	]}
 >
-	<nav class="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-5 sm:h-16 sm:px-6">
-		<a href="/" class="nav-brand font-serif text-base font-semibold tracking-tight text-stone-900 sm:text-lg">
+	<nav class="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-5 sm:h-16 sm:gap-4 sm:px-6">
+		<a href="/" class="nav-brand whitespace-nowrap font-serif text-base font-semibold tracking-tight text-stone-900 sm:text-lg">
 			<span class="sm:hidden">{profile.shortName}</span>
 			<span class="hidden sm:inline">{profile.name}</span>
 		</a>
-		<ul class="flex shrink-0 items-center gap-4 text-sm sm:gap-6">
+		<ul class="flex shrink-0 items-center gap-2.5 text-sm sm:gap-6">
 			{
 				links.map((link) => (
 					<li>
@@ -44,7 +46,14 @@ const isActive = (href: string) => (href === "/" ? currentPath === "/" : current
 								isActive(link.href) ? "font-medium text-stone-900" : "text-stone-600"
 							}`}
 						>
-							{link.label}
+							{link.shortLabel ? (
+								<>
+									<span class="sm:hidden">{link.shortLabel}</span>
+									<span class="hidden sm:inline">{link.label}</span>
+								</>
+							) : (
+								link.label
+							)}
 						</a>
 					</li>
 				))

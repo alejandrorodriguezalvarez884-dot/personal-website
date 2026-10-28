@@ -261,6 +261,10 @@ export type OssContribution = {
   // Merge date for merged PRs, opening date for open ones.
   date: string;
   description: string;
+  // Longer write-up for the /open-source page, one paragraph per entry.
+  details: string[];
+  // Lines added and removed, as GitHub shows them.
+  diff: string;
   tags: string[];
 };
 
@@ -275,6 +279,12 @@ export const ossContributions: OssContribution[] = [
     date: "Oct 2026",
     description:
       "OpenVINO export and inference for NVIDIA's hybrid Mamba-2 / attention / MoE architecture (Nemotron-H, Nano v2, Nemotron 3). It reuses the existing Mamba-2 recurrent cell and adds experts without a gate. It also follows NVIDIA's own time-step clamp, which brings 16k-token perplexity from 2.14 down to 1.91.",
+    details: [
+      "NemotronH stacks Mamba-2, attention, MLP and mixture-of-experts layers, and is native in transformers. The export reuses optimum-intel's GraniteMoeHybrid support, so the Mamba-2 layers go through the same recurrent cell (an OpenVINO loop) and the same cache layout. What differs: each layer has a single mixer, picked by its block type, and the experts have no gate (up, relu², down). The shared experts patch now handles that case without changing the graph of gated models.",
+      "One choice is backed by measurements. transformers clamps the time step dt at time_step_min when it processes the prompt, but not when it decodes token by token. NVIDIA's original code, mamba_ssm and vLLM clamp with config.time_step_limit instead. In Nemotron 3 Nano 4B, 23% of the dt values sit below time_step_min, so the choice shows on long contexts: following NVIDIA, perplexity at 16k tokens is 1.91 instead of 2.14.",
+      "Exported to int4, Nano 4B takes 2.4 GB. Its hidden size (3136) is not a multiple of 128, so without --group-size-fallback adjust about half of the weights stay in bf16 and the model takes 5.0 GB.",
+    ],
+    diff: "+283 −28",
     tags: ["OpenVINO", "Mamba-2", "MoE"],
   },
   {
@@ -286,6 +296,11 @@ export const ossContributions: OssContribution[] = [
     date: "Oct 2026",
     description:
       "With local_files_only or HF_HUB_OFFLINE=1, a local PyTorch folder was looked up in the Hub cache instead, so the OpenVINO export was silently skipped. Found by reading the code; fixed with a regression test.",
+    details: [
+      "With local_files_only=True, which HF_HUB_OFFLINE=1 also forces, OVBaseModel.from_pretrained assumed the model id was a Hub id and read refs/main from the Hub cache to find the snapshot. For a local folder that file does not exist. The error was swallowed with a misleading warning, the export stayed off, and loading then failed looking for openvino_model.xml.",
+      "The fix only resolves the Hub cache when the model id is not a local directory, so loading cached Hub models offline works as before. A new test covers local_files_only and offline mode; both cases fail on main and pass with the fix. There was no issue for it: the bug came from reading the code.",
+    ],
+    diff: "+21 −1",
     tags: ["OpenVINO", "Bug fix"],
   },
   {
@@ -297,6 +312,11 @@ export const ossContributions: OssContribution[] = [
     date: "Oct 2026",
     description:
       "Token embeddings only had trailing padding removed, so left-padding models like Qwen3-Embedding returned padding rows mixed in with real tokens. Each row is now cut from its first to its last real token. Merged within the hour.",
+    details: [
+      "encode(..., output_value=\"token_embeddings\") cut each row at its last real token, which only handles right padding. The Qwen3-Embedding model cards recommend padding_side=\"left\", and with it the shorter texts in a batch came back with their padding rows still attached. Anything built on the token embeddings, like mean pooling or late chunking, then included padding.",
+      "Each row is now sliced from its first to its last attended token, and right-padded outputs are unchanged. The existing test now runs with both padding sides; the left case failed before the fix. The maintainer merged it 54 minutes after it was opened.",
+    ],
+    diff: "+5 −5",
     tags: ["Embeddings", "Bug fix"],
   },
 ];

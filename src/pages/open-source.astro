@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import OpenSourceList from "../components/OpenSourceList.astro";
+import Footer from "../components/Footer.astro";
+import { profile } from "../data/profile";
+---
+
+<Layout
+	title={`Open source · ${profile.name}`}
+	description="Pull requests to open-source AI libraries: Hugging Face optimum-intel and sentence-transformers."
+>
+	<Nav />
+	<main>
+		<OpenSourceList />
+	</main>
+	<Footer />
+</Layout>

@@ -1,9 +1,5 @@
 ---
-import { ossContributions, profile } from "../data/profile";
-
-// All PRs by this account to repos it doesn't own.
-const user = profile.socials.github.split("/").pop();
-const prsUrl = `https://github.com/pulls?q=is%3Apr+author%3A${user}+-user%3A${user}`;
+import { ossContributions } from "../data/profile";
 ---
 
 <section id="open-source" class="scroll-mt-20 border-b border-stone-200">
@@ -16,12 +12,10 @@ const prsUrl = `https://github.com/pulls?q=is%3Apr+author%3A${user}+-user%3A${us
 				</p>
 			</div>
 			<a
-				href={prsUrl}
-				target="_blank"
-				rel="noreferrer"
+				href="/open-source/"
 				class="group inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
 			>
-				All pull requests
+				All contributions
 				<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-4 w-4 transition-transform group-hover:translate-x-0.5">
 					<path
 						fill-rule="evenodd"
@@ -52,8 +46,8 @@ const prsUrl = `https://github.com/pulls?q=is%3Apr+author%3A${user}+-user%3A${us
 							)}
 							<span class="text-xs text-stone-400">{pr.date}</span>
 						</div>
-						<p class="mt-4 break-all font-mono text-xs text-stone-500">
-							{pr.repo}<span class="text-stone-400">#{pr.number}</span>
+						<p class="mt-4 break-words font-mono text-xs text-stone-500">
+							<span class="whitespace-nowrap">{pr.repo.split("/")[0]}/</span><wbr /><span class="whitespace-nowrap">{pr.repo.split("/")[1]}<span class="text-stone-400">#{pr.number}</span></span>
 						</p>
 						<h3 class="mt-1.5 font-serif text-lg font-semibold leading-snug text-stone-900 transition-colors group-hover:text-emerald-700">
 							{pr.title}
