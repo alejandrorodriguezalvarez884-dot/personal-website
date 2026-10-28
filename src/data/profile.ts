@@ -252,6 +252,55 @@ export const skillCategories: SkillCategory[] = [
   { category: "Languages", items: ["Spanish (native)", "Italian (C2)", "English (C1)"] },
 ];
 
+export type OssContribution = {
+  repo: string;
+  number: number;
+  title: string;
+  url: string;
+  status: "merged" | "open";
+  // Merge date for merged PRs, opening date for open ones.
+  date: string;
+  description: string;
+  tags: string[];
+};
+
+// Pull requests to other people's open-source projects, most recent first.
+export const ossContributions: OssContribution[] = [
+  {
+    repo: "huggingface/optimum-intel",
+    number: 2085,
+    title: "NemotronH support for OpenVINO",
+    url: "https://github.com/huggingface/optimum-intel/pull/2085",
+    status: "merged",
+    date: "Oct 2026",
+    description:
+      "OpenVINO export and inference for NVIDIA's hybrid Mamba-2 / attention / MoE architecture (Nemotron-H, Nano v2, Nemotron 3). It reuses the existing Mamba-2 recurrent cell and adds experts without a gate. It also follows NVIDIA's own time-step clamp, which brings 16k-token perplexity from 2.14 down to 1.91.",
+    tags: ["OpenVINO", "Mamba-2", "MoE"],
+  },
+  {
+    repo: "huggingface/optimum-intel",
+    number: 2084,
+    title: "Export local checkpoints in offline mode",
+    url: "https://github.com/huggingface/optimum-intel/pull/2084",
+    status: "merged",
+    date: "Oct 2026",
+    description:
+      "With local_files_only or HF_HUB_OFFLINE=1, a local PyTorch folder was looked up in the Hub cache instead, so the OpenVINO export was silently skipped. Found by reading the code; fixed with a regression test.",
+    tags: ["OpenVINO", "Bug fix"],
+  },
+  {
+    repo: "huggingface/sentence-transformers",
+    number: 4279,
+    title: "Strip left padding from token embeddings",
+    url: "https://github.com/huggingface/sentence-transformers/pull/4279",
+    status: "merged",
+    date: "Oct 2026",
+    description:
+      "Token embeddings only had trailing padding removed, so left-padding models like Qwen3-Embedding returned padding rows mixed in with real tokens. Each row is now cut from its first to its last real token. Merged within the hour.",
+    tags: ["Embeddings", "Bug fix"],
+  },
+];
+
 export type SubProject = {
   name: string;
   description: string;
