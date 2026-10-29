@@ -146,6 +146,10 @@ export type Experience = {
   bullets?: string[];
   tech?: string[];
   subroles?: SubRole[];
+  // Square logo in public/logos/. `logoBleed` for logos that bring their own background
+  // colour and should fill the tile, instead of sitting padded on white.
+  logo?: string;
+  logoBleed?: boolean;
 };
 
 // Ordered reverse-chronologically (most recent first), as is standard for a CV.
@@ -154,6 +158,7 @@ export const experience: Experience[] = [
     role: "Freelance AI Engineer",
     company: "Korn Ferry",
     companyUrl: "https://www.kornferry.com",
+    logo: "/logos/kornferry.png",
     client: "Solera Holdings",
     clientUrl: "https://www.solera.com",
     location: "Madrid, Spain",
@@ -166,6 +171,7 @@ export const experience: Experience[] = [
     role: "AI Engineer",
     company: "Multiverse Computing",
     companyUrl: "https://multiversecomputing.com",
+    logo: "/logos/multiverse.png",
     location: "Zaragoza, Spain",
     period: "Jan 2026 - Jun 2026",
     bullets: [
@@ -180,6 +186,7 @@ export const experience: Experience[] = [
     role: "Full Stack Engineer",
     company: "Universidad Politécnica de Madrid",
     companyUrl: "https://www.upm.es",
+    logo: "/logos/upm.png",
     location: "Madrid, Spain",
     period: "Dec 2025 - Jun 2026",
     bullets: [
@@ -192,6 +199,8 @@ export const experience: Experience[] = [
     role: "AI & Data Science Senior",
     company: "Dentsu",
     companyUrl: "https://www.dentsu.com",
+    logo: "/logos/dentsu.png",
+    logoBleed: true,
     location: "Madrid, Spain",
     period: "Jan 2023 - Dec 2025",
     subroles: [
@@ -234,6 +243,8 @@ export const experience: Experience[] = [
     role: "Data Engineer",
     company: "Minsait",
     companyUrl: "https://www.minsait.com",
+    logo: "/logos/minsait.png",
+    logoBleed: true,
     location: "Alcobendas, Spain",
     period: "Jul 2021 - Sep 2022",
     subroles: [

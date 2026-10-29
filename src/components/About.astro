@@ -41,7 +41,25 @@ import { profile, experience, education, certifications, skillCategories } from 
 							    scannable; everything is still in the DOM for search and for crawlers. */}
 							<details class="group rounded-xl border border-stone-200 open:border-stone-300 open:bg-stone-50/60" open={index === 0}>
 								<summary class="flex cursor-pointer list-none items-start gap-3 p-4 [&::-webkit-details-marker]:hidden">
-									<span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-600 group-open:bg-emerald-700" />
+									{item.logo ? (
+										<span
+											class:list={[
+												"flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-stone-200",
+												item.logoBleed ? "" : "bg-white p-1",
+											]}
+										>
+											<img
+												src={item.logo}
+												alt=""
+												width="40"
+												height="40"
+												loading="lazy"
+												class:list={["h-full w-full", item.logoBleed ? "object-cover" : "object-contain"]}
+											/>
+										</span>
+									) : (
+										<span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-600 group-open:bg-emerald-700" />
+									)}
 									<span class="min-w-0 flex-1">
 										<span class="block font-medium text-stone-900">{item.role}</span>
 										<span class="mt-0.5 block text-sm text-stone-500">
