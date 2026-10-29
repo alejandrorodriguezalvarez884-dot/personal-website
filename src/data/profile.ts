@@ -127,8 +127,6 @@ export const products: Product[] = [
   },
 ];
 
-// Highlighted on the home page as a teaser; the full list lives on /projects.
-export const featuredProjectNames = ["Ask My Site", "KD Boundaries", "LLM Router"];
 
 export type SubRole = {
   title: string;
@@ -569,5 +567,46 @@ export const upcomingProjects: UpcomingProject[] = [
     name: "Layer-wise Compression Profiler",
     description:
       "A tool that takes a model and works out which layers are most sensitive to quantization and pruning, via Fisher information, Hessian sensitivity or plain ablation, then proposes a mixed-precision bit allocation from the result. Infrastructure rather than a toy.",
+  },
+];
+
+export type Highlight = {
+  kind: string;
+  title: string;
+  description: string;
+  url: string;
+  // Link to the section that lists the rest of this kind.
+  more: { href: string; label: string };
+};
+
+const find = <T>(items: T[], match: (item: T) => boolean): T => {
+  const item = items.find(match);
+  if (!item) throw new Error("A home-page highlight points at an entry that no longer exists");
+  return item;
+};
+
+// One of each, on the home page; everything else lives on its own page. URLs come from the
+// entries above so they never drift apart.
+export const highlights: Highlight[] = [
+  {
+    kind: "Product",
+    title: "Wyncall",
+    description: "An AI voice agent that phones private clinics' patients to cut no-shows and call back every enquiry.",
+    url: find(products, (p) => p.name === "Wyncall").url,
+    more: { href: "/products/", label: "See more products" },
+  },
+  {
+    kind: "Project",
+    title: "KD Boundaries",
+    description: "A visual lab that shows what a distilled student actually learns from its teacher.",
+    url: find(projects, (p) => p.name === "KD Boundaries").url,
+    more: { href: "/projects/", label: "See more projects" },
+  },
+  {
+    kind: "Open source",
+    title: "NemotronH support for OpenVINO",
+    description: "Merged into Hugging Face optimum-intel: export and inference for NVIDIA's hybrid Mamba-2 / MoE models.",
+    url: find(ossContributions, (pr) => pr.number === 2085).url,
+    more: { href: "/open-source/", label: "See more contributions" },
   },
 ];
