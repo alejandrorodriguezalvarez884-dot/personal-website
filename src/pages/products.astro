@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Products from "../components/Products.astro";
+import Footer from "../components/Footer.astro";
+import { profile } from "../data/profile";
+---
+
+<Layout
+	title={`Products · ${profile.name}`}
+	description="Live products by Alejandro: Wyncall, an AI voice agent for clinics; The Market Hub, an AI investing portal; and Llamazo, AI prank calls in Spanish."
+>
+	<Nav />
+	<main>
+		<Products />
+	</main>
+	<Footer />
+</Layout>

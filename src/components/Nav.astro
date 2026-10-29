@@ -12,7 +12,7 @@ const { overlay = false } = Astro.props;
 // `desktopOnly` drops a link on phones: About is redundant there, since the name links home.
 const links: { href: string; label: string; shortLabel?: string; desktopOnly?: boolean }[] = [
   { href: "/", label: "About", desktopOnly: true },
-  { href: "/#products", label: "Products" },
+  { href: "/products/", label: "Products" },
   { href: "/projects/", label: "Projects" },
   { href: "/open-source/", label: "Open source", shortLabel: "OSS" },
   { href: "/contact/", label: "Contact" },

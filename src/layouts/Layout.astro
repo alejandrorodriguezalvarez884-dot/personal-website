@@ -71,17 +71,6 @@ const ogImageAlt = `${profile.name} · ${profile.role} · Madrid`;
 	</body>
 </html>
 
-<script>
-	// Arriving from another page with a hash (e.g. the nav's /#products): the smooth scroll
-	// the browser starts on load gets cut short while fonts and images settle, and can end
-	// up nowhere near the section. Jump there once the page has finished loading instead.
-	if (location.hash) {
-		window.addEventListener("load", () => {
-			document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ behavior: "instant" });
-		});
-	}
-</script>
-
 <style is:global>
 	html {
 		font-family: "Inter", system-ui, sans-serif;
