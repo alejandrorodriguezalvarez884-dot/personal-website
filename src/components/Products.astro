@@ -1,0 +1,94 @@
+---
+import { products } from "../data/profile";
+---
+
+{/* -scroll-mt-20 cancels the global scroll-padding-top: the section's own top padding already
+    clears the nav, and landing flush means no strip of the dark hero shows under the bar. */}
+<section id="products" class="-scroll-mt-20 border-b border-stone-200">
+	<div class="mx-auto max-w-5xl px-6 py-16 sm:py-24">
+		<h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">Products</h2>
+		<p class="mt-3 max-w-2xl font-serif text-2xl leading-snug text-stone-900 sm:text-3xl">
+			Live products I designed, built and run
+		</p>
+
+		<div class="mt-10 flex flex-col gap-10 sm:mt-12 sm:gap-14">
+			{
+				products.map((product, index) => (
+					<article class="grid items-center gap-6 md:grid-cols-2 md:gap-10">
+						{/* Alternate the screenshot side on desktop so three rows don't read as a list. */}
+						<a
+							href={product.url}
+							target="_blank"
+							rel="noreferrer"
+							aria-label={`Open ${product.name}`}
+							class:list={[
+								"group block overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:border-stone-300 hover:shadow-lg hover:shadow-stone-200/60",
+								index % 2 === 1 && "md:order-2",
+							]}
+						>
+							<div class="flex items-center gap-1.5 border-b border-stone-200 bg-stone-100 px-3 py-2">
+								<span class="h-2.5 w-2.5 rounded-full bg-stone-300" />
+								<span class="h-2.5 w-2.5 rounded-full bg-stone-300" />
+								<span class="h-2.5 w-2.5 rounded-full bg-stone-300" />
+								<span class="ml-2 truncate rounded-md bg-white px-2.5 py-0.5 font-mono text-[0.7rem] text-stone-500">
+									{product.domain}
+								</span>
+							</div>
+							<div class="aspect-[16/10] overflow-hidden">
+								<img
+									src={product.image}
+									alt={product.imageAlt}
+									width="1440"
+									height="900"
+									loading="lazy"
+									class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+								/>
+							</div>
+						</a>
+
+						<div>
+							<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+								<h3 class="font-serif text-2xl font-semibold text-stone-900">{product.name}</h3>
+								{product.language && (
+									<span class="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium text-stone-500">
+										In {product.language}
+									</span>
+								)}
+							</div>
+							<p class="mt-1 text-sm font-medium text-emerald-700">{product.tagline}</p>
+							<p class="mt-3 text-sm leading-relaxed text-stone-600 sm:text-base">{product.description}</p>
+							<ul class="mt-4 space-y-1.5 text-sm text-stone-600">
+								{product.highlights.map((highlight) => (
+									<li class="flex gap-2">
+										<span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-emerald-600" />
+										<span>{highlight}</span>
+									</li>
+								))}
+							</ul>
+							<ul class="mt-4 flex flex-wrap gap-1.5">
+								{product.tags.map((tag) => (
+									<li class="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium text-stone-500">{tag}</li>
+								))}
+							</ul>
+							<a
+								href={product.url}
+								target="_blank"
+								rel="noreferrer"
+								class="group mt-5 inline-flex items-center gap-1.5 rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-stone-50 transition-colors hover:bg-stone-700"
+							>
+								Visit {product.domain}
+								<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-4 w-4 transition-transform group-hover:translate-x-0.5">
+									<path
+										fill-rule="evenodd"
+										d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</a>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>

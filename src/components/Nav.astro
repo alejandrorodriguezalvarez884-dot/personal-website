@@ -8,9 +8,11 @@ interface Props {
 
 const { overlay = false } = Astro.props;
 
-// `shortLabel` is shown on phones, where four full labels plus the name don't fit.
-const links: { href: string; label: string; shortLabel?: string }[] = [
-  { href: "/", label: "About" },
+// `shortLabel` is shown on phones, where the full labels plus the name don't fit.
+// `desktopOnly` drops a link on phones: About is redundant there, since the name links home.
+const links: { href: string; label: string; shortLabel?: string; desktopOnly?: boolean }[] = [
+  { href: "/", label: "About", desktopOnly: true },
+  { href: "/#products", label: "Products" },
   { href: "/projects/", label: "Projects" },
   { href: "/open-source/", label: "Open source", shortLabel: "OSS" },
   { href: "/contact/", label: "Contact" },
@@ -38,7 +40,7 @@ const isActive = (href: string) => (href === "/" ? currentPath === "/" : current
 		<ul class="flex shrink-0 items-center gap-2.5 text-sm sm:gap-6">
 			{
 				links.map((link) => (
-					<li>
+					<li class:list={[link.desktopOnly && "hidden sm:list-item"]}>
 						<a
 							href={link.href}
 							aria-current={isActive(link.href) ? "page" : undefined}

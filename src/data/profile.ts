@@ -58,6 +58,75 @@ export const focusAreas: FocusArea[] = [
   },
 ];
 
+export type Product = {
+  name: string;
+  // One line under the name: what it is, in a few words.
+  tagline: string;
+  description: string;
+  highlights: string[];
+  url: string;
+  // Shown on the link instead of the full URL.
+  domain: string;
+  image: string;
+  imageAlt: string;
+  tags: string[];
+  // Language of the product itself, when it isn't English.
+  language?: string;
+};
+
+// Live products with their own domain and real users, shown right after the hero.
+export const products: Product[] = [
+  {
+    name: "Wyncall",
+    tagline: "AI voice agent for private clinics",
+    description:
+      "An AI agent that phones a clinic's patients: it confirms and reschedules appointments to cut no-shows, calls new enquiries back within a minute, and brings lapsed patients back. Built for dental, aesthetics, hair, physio, medical and eye clinics. Anyone can set up a free trial agent in three minutes and have it call their own phone.",
+    highlights: [
+      "Builds the agent from the clinic's own website and goals",
+      "Streams each turn so speech starts before the reply is finished",
+      "Never gives clinical advice: anything medical goes to reception",
+    ],
+    url: "https://wyncall.com/en",
+    domain: "wyncall.com",
+    image: "/products/wyncall.png",
+    imageAlt: "Wyncall home page: \"The AI that calls your patients to bring them back\", specialists in private clinics",
+    tags: ["Claude API", "Twilio", "ElevenLabs", "FastAPI", "Next.js", "Cloud Run"],
+  },
+  {
+    name: "The Market Hub",
+    tagline: "Your portfolio, powered by AI",
+    description:
+      "An investing portal: sign in, add the stocks you hold or follow, and get a dashboard of your portfolio (value, profit and loss, sector split, a year against the S&P 500) plus five AI tools: Earnings Radar, Fundamentals Lab, Options Lab, Peer Map and PlayGround. The public side has markets, news, daily opinion pieces and a YouTube channel, and there is an iPhone app.",
+    highlights: [
+      "Five AI tools under one login, each its own service",
+      "Bot League: members build trading bots with their own agent and compete on paper",
+      "Describes, never advises: no code places orders or connects to a broker",
+    ],
+    url: "https://themarkethub.app/",
+    domain: "themarkethub.app",
+    image: "/products/markethub.png",
+    imageAlt: "The Market Hub home page: \"Your portfolio, powered by AI\", with buttons to open My Hub and explore the five AI tools",
+    tags: ["Claude API", "FastAPI", "Astro", "Firestore", "React Native", "Cloud Run"],
+  },
+  {
+    name: "Llamazo",
+    tagline: "AI prank calls, in Spanish",
+    description:
+      "Pick a prank (or write your own), choose a voice and add a few details about your friend: a voice agent calls them and keeps the bit going live. When they hang up they get a WhatsApp revealing the prank, with a link to listen back and prank someone in return. €0.99 per call; if nobody answers, it goes to another prank or back to you.",
+    highlights: [
+      "Real-time voice agent: speech-to-text, LLM and an expressive voice on a live phone call",
+      "Every custom prank is reviewed by a model before payment",
+      "Introduces itself as a virtual assistant, as the EU AI Act requires",
+    ],
+    url: "https://llamazo.com/",
+    domain: "llamazo.com",
+    image: "/products/llamazo.png",
+    imageAlt: "Llamazo home page: \"You pick the prank. The AI makes the call.\", next to a phone showing a live prank call transcript",
+    tags: ["Twilio", "Mistral", "ElevenLabs", "Deepgram", "Stripe", "FastAPI"],
+    language: "Spanish",
+  },
+];
+
 // Highlighted on the home page as a teaser; the full list lives on /projects.
 export const featuredProjectNames = ["Ask My Site", "KD Boundaries", "LLM Router"];
 

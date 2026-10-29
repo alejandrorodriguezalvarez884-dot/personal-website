@@ -25,7 +25,7 @@ const promptsByPath: Record<string, PromptSet> = {
 
 const defaultPrompts: PromptSet = {
 	greeting: "Hey 👋 I'm an AI assistant that knows Alejandro's background, experience, and projects. Ask me anything!",
-	suggestions: ["What's he working on?", "Tell me about his experience", "Is he open to relocating?"],
+	suggestions: ["What products has he launched?", "Tell me about his experience", "Is he open to relocating?"],
 };
 
 const { greeting, suggestions } = promptsByPath[Astro.url.pathname.replace(/\/$/, "")] ?? defaultPrompts;
