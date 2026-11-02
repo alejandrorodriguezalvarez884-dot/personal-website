@@ -353,14 +353,14 @@ export const ossContributions: OssContribution[] = [
     number: 50156,
     title: "Apply final logit soft-capping in PaliGemma 2",
     url: "https://github.com/huggingface/transformers/pull/50156",
-    status: "open",
-    date: "Oct 2026",
+    status: "merged",
+    date: "Nov 2026",
     description:
       "Since transformers v4.52, PaliGemma 2 had been skipping Gemma 2's final logit soft-capping, so sampling, log-probabilities and the training loss no longer matched the original model. I found it by reading the code, and the maintainer confirmed it against Google's big_vision.",
     details: [
       "PaliGemma 2 pairs a SigLIP vision encoder with Gemma 2. Gemma 2's config sets final_logit_softcapping=30, which passes the logits through tanh(x / 30) * 30 before the softmax. Up to v4.51, PaliGemma wrapped Gemma2ForCausalLM, which applied the cap. A refactor in v4.52 replaced it with the bare text model and a separate lm_head, and the cap was dropped. Greedy decoding does not change because tanh is monotonic, which is why the integration tests never caught it.",
       "On the released paligemma2-3b-mix-224 checkpoint the logits never reach 30, but the cap still matters. The caption's log-probability goes from -5.83 to -7.93, and at T=1 the sampling distribution shifts by 13% (total variation distance). I opened the issue with a CPU reproduction; the maintainer checked big_vision and asked me for the PR.",
-      "The fix applies the cap after lm_head, as Gemma 3n does. It reads the cap with getattr, because PaliGemma 1's GemmaConfig has no such field. A new test sets a small cap and checks that no logit goes past it: it fails on main and passes with the fix.",
+      "The fix applies the cap after lm_head, as Gemma 3n does. It reads the cap with getattr, because PaliGemma 1's GemmaConfig has no such field. A new test sets a small cap and checks that no logit goes past it: it fails on main and passes with the fix. The maintainer ran the slow PaliGemma tests and merged it unchanged three days after it was opened.",
     ],
     diff: "+19 −0",
     tags: ["Vision-language", "Bug fix"],
@@ -370,7 +370,7 @@ export const ossContributions: OssContribution[] = [
     number: 2085,
     title: "NemotronH support for OpenVINO",
     url: "https://github.com/huggingface/optimum-intel/pull/2085",
-    status: "merged",
+    status: "open",
     date: "Oct 2026",
     description:
       "OpenVINO export and inference for NVIDIA's hybrid Mamba-2 / attention / MoE architecture (Nemotron-H, Nano v2, Nemotron 3). It reuses the existing Mamba-2 recurrent cell and adds experts without a gate. It also follows NVIDIA's own time-step clamp, which brings 16k-token perplexity from 2.14 down to 1.91.",
@@ -379,7 +379,7 @@ export const ossContributions: OssContribution[] = [
       "One choice is backed by measurements. transformers clamps the time step dt at time_step_min when it processes the prompt, but not when it decodes token by token. NVIDIA's original code, mamba_ssm and vLLM clamp with config.time_step_limit instead. In Nemotron 3 Nano 4B, 23% of the dt values sit below time_step_min, so the choice shows on long contexts: following NVIDIA, perplexity at 16k tokens is 1.91 instead of 2.14.",
       "Exported to int4, Nano 4B takes 2.4 GB. Its hidden size (3136) is not a multiple of 128, so without --group-size-fallback adjust about half of the weights stay in bf16 and the model takes 5.0 GB.",
     ],
-    diff: "+283 −28",
+    diff: "+285 −28",
     tags: ["OpenVINO", "Mamba-2", "MoE"],
   },
   {
@@ -632,9 +632,9 @@ export const highlights: Highlight[] = [
   },
   {
     kind: "Open source",
-    title: "NemotronH support for OpenVINO",
-    description: "Merged into Hugging Face optimum-intel: export and inference for NVIDIA's hybrid Mamba-2 / MoE models.",
-    url: find(ossContributions, (pr) => pr.number === 2085).url,
+    title: "Final logit soft-capping in PaliGemma 2",
+    description: "Merged into Hugging Face transformers: PaliGemma 2 had been sampling and training without Gemma 2's logit cap since v4.52.",
+    url: find(ossContributions, (pr) => pr.number === 50156).url,
     more: { href: "/open-source/", label: "See more contributions" },
   },
 ];
