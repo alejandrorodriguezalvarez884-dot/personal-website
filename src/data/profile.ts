@@ -356,7 +356,7 @@ export const ossContributions: OssContribution[] = [
     status: "merged",
     date: "Nov 2026",
     description:
-      "Since transformers v4.52, PaliGemma 2 had been skipping Gemma 2's final logit soft-capping, so sampling, log-probabilities and the training loss no longer matched the original model. I found it by reading the code, and the maintainer confirmed it against Google's big_vision.",
+      "Since transformers v4.52, PaliGemma 2 had been skipping Gemma 2's final logit soft-capping, so sampling, log-probabilities and the training loss no longer matched the original model. I found it by reading the code; the maintainer, zucchini-nlp, confirmed it against Google's big_vision and merged the fix.",
     details: [
       "PaliGemma 2 pairs a SigLIP vision encoder with Gemma 2. Gemma 2's config sets final_logit_softcapping=30, which passes the logits through tanh(x / 30) * 30 before the softmax. Up to v4.51, PaliGemma wrapped Gemma2ForCausalLM, which applied the cap. A refactor in v4.52 replaced it with the bare text model and a separate lm_head, and the cap was dropped. Greedy decoding does not change because tanh is monotonic, which is why the integration tests never caught it.",
       "On the released paligemma2-3b-mix-224 checkpoint the logits never reach 30, but the cap still matters. The caption's log-probability goes from -5.83 to -7.93, and at T=1 the sampling distribution shifts by 13% (total variation distance). I opened the issue with a CPU reproduction; the maintainer checked big_vision and asked me for the PR.",
