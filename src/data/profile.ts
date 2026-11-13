@@ -349,6 +349,24 @@ export type OssContribution = {
 // Pull requests to other people's open-source projects, most recent first.
 export const ossContributions: OssContribution[] = [
   {
+    repo: "huggingface/optimum-intel",
+    number: 2085,
+    title: "NemotronH support for OpenVINO",
+    url: "https://github.com/huggingface/optimum-intel/pull/2085",
+    status: "merged",
+    date: "Nov 2026",
+    description:
+      "OpenVINO export for NVIDIA's hybrid Mamba-2 / attention / MoE architecture (Nemotron-H, Nano v2, Nemotron 3 and 3.5). It reuses the existing Mamba-2 recurrent cell and runs the experts through grouped MatMul, so Nemotron 3.5 Lightning 30B-A3B now loads and runs on Intel CPUs and GPUs. Merged after several review rounds with three reviewers.",
+    details: [
+      "NemotronH stacks Mamba-2, attention, MLP and mixture-of-experts layers, and is native in transformers. The export reuses optimum-intel's GraniteMoeHybrid support, so the Mamba-2 layers go through the same recurrent cell (an OpenVINO loop) and the same cache layout. What differs: each layer has a single mixer, picked by its block type, and the experts have no gate (up, relu², down). The PR also fixes a bug that was already on main: the export without KV cache ignored padding in Mamba-2 hybrids.",
+      "The experts go through grouped MatMul, which a reviewer's Granite patch extended to experts without a gate, so on CPU they compile to GatherMatmul and the int4 expert weights stay compressed. On a synthetic MoE model with Nano 30B-A3B's dimensions, CPU decode went from 11 to 96 tok/s compared with the first version's dense batched experts. The issue author tested Nemotron 3.5 Lightning 30B-A3B in int4: it used to be killed at 113 GB while loading on a Core Ultra 9 285K, and it now decodes at 21-25 tok/s there, 43-44 tok/s on an Arc Pro B60 and 23-28 tok/s on the Arc 140V iGPU of a 32 GB laptop.",
+      "transformers clamps the time step dt at time_step_min when it processes the prompt, while NVIDIA's original code, mamba_ssm and vLLM use config.time_step_limit. The first version followed NVIDIA, which gave a 16k-token perplexity of 1.91 instead of 2.14 on Nano 4B. The reviewers asked to match transformers and link the open transformers PR that would change it, so the export now clamps where transformers does, version by version. Against transformers, WWB similarity is 0.978 for Nano 30B-A3B in fp16 and 0.957 for Nano 4B in int8.",
+      "Nano 4B's hidden size (3136) and the 30B-A3B experts' intermediate size (1856) are not multiples of 128, so the default int4 config left part of the weights in bf16: Nano 4B took 5.0 GB instead of 2.4 GB. The PR makes int4 with group size 64 the default for the three models.",
+    ],
+    diff: "+267 −28",
+    tags: ["OpenVINO", "Mamba-2", "MoE"],
+  },
+  {
     repo: "huggingface/transformers",
     number: 50156,
     title: "Apply final logit soft-capping in PaliGemma 2",
@@ -364,23 +382,6 @@ export const ossContributions: OssContribution[] = [
     ],
     diff: "+19 −0",
     tags: ["Vision-language", "Bug fix"],
-  },
-  {
-    repo: "huggingface/optimum-intel",
-    number: 2085,
-    title: "NemotronH support for OpenVINO",
-    url: "https://github.com/huggingface/optimum-intel/pull/2085",
-    status: "open",
-    date: "Oct 2026",
-    description:
-      "OpenVINO export and inference for NVIDIA's hybrid Mamba-2 / attention / MoE architecture (Nemotron-H, Nano v2, Nemotron 3). It reuses the existing Mamba-2 recurrent cell and adds experts without a gate. It also follows NVIDIA's own time-step clamp, which brings 16k-token perplexity from 2.14 down to 1.91.",
-    details: [
-      "NemotronH stacks Mamba-2, attention, MLP and mixture-of-experts layers, and is native in transformers. The export reuses optimum-intel's GraniteMoeHybrid support, so the Mamba-2 layers go through the same recurrent cell (an OpenVINO loop) and the same cache layout. What differs: each layer has a single mixer, picked by its block type, and the experts have no gate (up, relu², down). The shared experts patch now handles that case without changing the graph of gated models.",
-      "One choice is backed by measurements. transformers clamps the time step dt at time_step_min when it processes the prompt, but not when it decodes token by token. NVIDIA's original code, mamba_ssm and vLLM clamp with config.time_step_limit instead. In Nemotron 3 Nano 4B, 23% of the dt values sit below time_step_min, so the choice shows on long contexts: following NVIDIA, perplexity at 16k tokens is 1.91 instead of 2.14.",
-      "Exported to int4, Nano 4B takes 2.4 GB. Its hidden size (3136) is not a multiple of 128, so without --group-size-fallback adjust about half of the weights stay in bf16 and the model takes 5.0 GB.",
-    ],
-    diff: "+285 −28",
-    tags: ["OpenVINO", "Mamba-2", "MoE"],
   },
   {
     repo: "huggingface/optimum-intel",
