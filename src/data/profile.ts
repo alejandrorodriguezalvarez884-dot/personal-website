@@ -77,6 +77,22 @@ export type Product = {
 // Live products with their own domain and real users, shown right after the hero.
 export const products: Product[] = [
   {
+    name: "SharedBrain",
+    tagline: "One memory for Claude Code across all your projects",
+    description:
+      "A free Mac app and Claude Code plugin. What Claude learns in one project (a decision, a fix, how you like things done) reaches the others: every session starts with a short briefing, and Claude can search the rest when it needs to. Claude proposes ideas as you work and nothing is kept until you accept it, on a map of your projects and chats. Everything stays on your Mac; an optional end-to-end encrypted cloud syncs your Macs.",
+    highlights: [
+      "A Claude Code plugin (hooks and an MCP server) backed by a local SQLite store",
+      "You review every idea: accept it, make it global, share it with one project or discard it",
+      "Optional sync encrypted on the Mac, so the server only ever stores ciphertext",
+    ],
+    url: "https://sharedbrain.dev/",
+    domain: "sharedbrain.dev",
+    image: "/products/sharedbrain.png",
+    imageAlt: "SharedBrain home page: \"What Claude learns in one project, it knows in all of them\", above the app's map of projects and chats",
+    tags: ["Rust", "Tauri", "React", "SQLite", "MCP", "Cloud Run", "Stripe"],
+  },
+  {
     name: "Wyncall",
     tagline: "AI voice agent for private clinics",
     description:
